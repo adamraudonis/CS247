@@ -12,9 +12,9 @@
 // Student-configurable options below...
 
 // show the after-gaussian blur camera input
-SHOW_RAW = true;
+SHOW_RAW = false;
 // show the final shadow
-SHOW_SHADOW = false;
+SHOW_SHADOW = true;
 // input option: kinectdepth (kinect depth sensor), kinectrgb (kinect camera), 
 // or webcam (computer camera)
 var INPUT = "webcam"; 
@@ -23,14 +23,11 @@ var INPUT = "webcam";
 var SHADOW_THRESHOLD = 10;
 // Between 0 and 1: how much memory we retain of previous frames.
 // In other words, how much we let the background adapt over time to more recent frames
-var BACKGROUND_ALPHA = 0.00; // .05
+var BACKGROUND_ALPHA = 0.05;
 // We run a gaussian blur over the input image to reduce random noise 
 // in the background subtraction. Change this radius to trade off noise for precision 
 var STACK_BLUR_RADIUS = 10; 
 
-var animCanvas;
-var animContext;
-var levelImg;
 
 /*
  * Begin shadowboxing code
@@ -66,62 +63,26 @@ function initializeDOMElements() {
     video.setAttribute('autoplay', true);
     video.style.display = 'none';
     
-
-    var w = 640;
-    var h = 480;
     rawCanvas = document.createElement('canvas');
     rawCanvas.setAttribute('id', 'rawCanvas');
-    rawCanvas.setAttribute('width', w); // 640
-    rawCanvas.setAttribute('height', h); // 480
+    rawCanvas.setAttribute('width', 640);
+    rawCanvas.setAttribute('height', 480);
     rawCanvas.style.display = SHOW_RAW ? 'block' : 'none';
     document.getElementById('capture').appendChild(rawCanvas);
-    rawCanvas.style.top = "50px";
     rawContext = rawCanvas.getContext('2d');
     // mirror horizontally, so it acts like a reflection
     rawContext.translate(rawCanvas.width, 0);
-    rawContext.scale(-1,1);  
-    rawContext.scale(.5, .5);
-  
+    rawContext.scale(-1,1);    
     
     shadowCanvas = document.createElement('canvas');
     shadowCanvas.setAttribute('id', 'shadowCanvas');
-    shadowCanvas.setAttribute('width', w);
-    shadowCanvas.setAttribute('height', h);
+    shadowCanvas.setAttribute('width', 640);
+    shadowCanvas.setAttribute('height', 480);
     shadowCanvas.style.display = SHOW_SHADOW ? 'block' : 'none';
     document.getElementById('capture').appendChild(shadowCanvas);
-    shadowContext = shadowCanvas.getContext('2d');
-    shadowContext.scale(.5, .5);
-
-    animCanvas = document.createElement('canvas');
-    animCanvas.setAttribute('id', 'animcanvas');
-    animCanvas.setAttribute('width', 640);
-    animCanvas.setAttribute('height', 480);
-    animContext = animCanvas.getContext('2d');
-    //animContext.fillStyle   = '#00f'; // blue
-    //animContext.fillRect(0, 0, 150, 100);
-    //animContext.save()
-    //animContext.scale(.51,.51);
-    //animContext.restore();
-
-    document.getElementById('simulation').appendChild(animCanvas);
-  
-    var levelbk = document.getElementById('levelImg')
-    levelbk.setAttribute('width', 64);
-    levelbk.setAttribute('height', 48);
-
-   // 
-   //  animContext = animCanvas.getContext('2d');   
-   //  // mirror horizontally, so it acts like a reflection
-   //  animContext.translate(animCanvas.width, 0);
-   //  animContext.scale(-1,1);  
-    //levelImg = document.createElement('img');
-    //levelImg.setAttribute('id', 'levelImg');
-    //levelImg.setAttribute('src', 'media/d1.png');
-    //levelImg.setAttribute('width', 64);
-    //levelImg.setAttribute('height', 48);
-   // document.getElementById('simulation').addEventListener('webkitAnimationEnd', endAnimation);
-    //document.getElementById('simulation').appendChild(levelImg);
+    shadowContext = shadowCanvas.getContext('2d');    
 }
+
 
 /*
  * Starts the connection to the Kinect
@@ -233,15 +194,6 @@ function getCameraData() {
 function setBackground() {
     var pixelData = getCameraData();
     background = pixelData;
-
-
-
-    //stillImage = new Image();
-    //stillImage.src = IMG_SRC;
-    //animContext.drawImage(stillImage, 0, 0, animCanvas.width, animCanvas.height);    
-    //animContext.putImageData(pixelData, 0, 0);
-    //animContext.drawImage(video, 0, 0, animCanvas.width, animCanvas.height);
-
 }
 
 /*

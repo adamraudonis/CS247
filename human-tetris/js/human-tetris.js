@@ -1,12 +1,17 @@
-var IMG_SRC  = 'media/debug2.png';
-var IMG_SRC_TUT  = 'media/tutorialStart.png';
+
+// Images
+var IMG_SRC_TUTORIAL  = 'media/tutorialStart.png';
+var IMG_SRC_LEVEL_1  = 'media/level1.png';
+var IMG_SRC_LEVEL_2  = 'media/level2.png';
+var IMG_SRC_LEVEL_3  = 'media/level3.png';
+
+// Sounds
 var BEEP_LOW = 'media/beep_low.m4a';
 var BEEP_HIGH = 'media/beep_high.m4a';
 var CRASH = 'media/crash.mp3';
 var RUMBLE = 'media/rumble.m4a';
 var SUCCESS = 'media/success.wav';
 var VICTORY = 'media/victory.mp3';
-
 var beep_volume = .2;
 var beep_low = new Audio(BEEP_LOW); 
 beep_low.volume = beep_volume;
@@ -24,6 +29,7 @@ var BLACK  = 0;
 var STOP = false;
 var ERROR_TOLERANCE = 5;
 var IN_TUTORIAL = true;
+var current_level = 1;
 var TUTORIAL_PIXELS = 15000; // The number of black pixels that must be in the door to start the countdown to play.
 var tutorial_cycles = 0;
 var level_cycles = 0;
@@ -32,12 +38,14 @@ var LVL_CYCLE_INTERVAL = 10;
 var stanfordImage;
 var imageReady = false;
 
+var levels;
+
 $(document).ready(function() {
     stanfordImage = new Image();
     if (IN_TUTORIAL) {
-        stanfordImage.src = IMG_SRC_TUT;
+        stanfordImage.src = IMG_SRC_TUTORIAL;
     } else {
-        stanfordImage.src = IMG_SRC;
+        stanfordImage.src = IMG_SRC_LEVEL_1; // Debug
     }
     stanfordImage.onload = function() {
         imageReady = true;
@@ -47,6 +55,11 @@ $(document).ready(function() {
     //el.style["WebkitTransition"] = "all .1s ease-in-out";
     el.style["WebkitTransform"] = "scale(1.5)";
 
+    levels = new Array();
+    levels[0] = IMG_SRC_TUTORIAL;
+    levels[1] = IMG_SRC_LEVEL_1;
+    levels[2] = IMG_SRC_LEVEL_2;
+    levels[3] = IMG_SRC_LEVEL_3;
 });
 
 /*
@@ -112,7 +125,7 @@ function renderShadow() {
             } 
         }
 
-        console.log(pixelsOnWhite);
+        //console.log(pixelsOnWhite);
         if (pixelsOnWhite > TUTORIAL_PIXELS && IN_TUTORIAL) { // && numErrors < ERROR_TOLERANCE
             tutorial_cycles = tutorial_cycles + 1;
             
@@ -126,7 +139,7 @@ function renderShadow() {
                     IN_TUTORIAL = false;
                     tutorial_cycles = 0;
                     level_cycles = 0;
-                    stanfordImage.src = IMG_SRC;
+                    stanfordImage.src = IMG_SRC_LEVEL_1;
                     var el = document.getElementById("capture");
                     el.style["WebkitTransition"] = "all 0s ease-in-out";
                     el.style["WebkitTransform"] = "scale(.1)";
@@ -162,6 +175,8 @@ function renderShadow() {
         if (level_cycles == LVL_CYCLE_INTERVAL * 3) {
             rumble.play();
             beep_high.play();
+            $("#tutorialtext").text("Start");
+
 
             var el = document.getElementById("capture");
             el.addEventListener( 'webkitTransitionEnd', transEnd, false );
@@ -185,6 +200,22 @@ function renderShadow() {
             success.play();
             console.log("You won!");
         }
+        setTimeout(function() {
+            current_level = current_level + 1;
+            if (!levels[current_level]) {
+                console.log("You won!!!");
+            } else {
+                level_cycles = -5;
+                STOP = false;
+                IN_TUTORIAL = false;
+                stanfordImage.src = levels[current_level];
+                var el = document.getElementById("capture");
+                el.style["WebkitTransition"] = "all 0s ease-in-out";
+                el.style["WebkitTransform"] = "scale(.1)";
+                setTimeout(renderShadow, 0);
+            }
+        },1000);
+        
     }
    // setTimeout(renderShadow, 0);
 }
@@ -192,7 +223,9 @@ function renderShadow() {
 function transEnd(e)
 {
     console.log("transition ended");
-    STOP = true;
+    if (level_cycles > 0) {
+        STOP = true;
+    } 
 }
 
 function test()

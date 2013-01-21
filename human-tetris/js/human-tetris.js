@@ -43,8 +43,9 @@ var success = new Audio(SUCCESS);
 
 var WHITE  = 255;   // 0 = foreground, 255 = background
 var BLACK  = 0;
+var BLACK_LIMIT = 50;
 var STOP = false;
-var ERROR_TOLERANCE = 5;
+var ERROR_TOLERANCE = 100;
 var IN_TUTORIAL = true;
 var current_level = 1;
 var TUTORIAL_PIXELS = 15000; // The number of black pixels that must be in the door to start the countdown to play.
@@ -80,10 +81,15 @@ $(document).ready(function() {
     // levels[2] = IMG_SRC_LEVEL_2;
     // levels[3] = IMG_SRC_LEVEL_3;
     
-    levels[1] = IMG_SRC_LEVEL_1_1;
-    levels[2] = IMG_SRC_LEVEL_1_2;
-    levels[3] = IMG_SRC_LEVEL_1_3;
-    levels[4] = IMG_SRC_LEVEL_1_4;
+     levels[1] = IMG_SRC_LEVEL_1_1;
+    // levels[2] = IMG_SRC_LEVEL_1_2;
+    // levels[3] = IMG_SRC_LEVEL_1_3;
+
+    levels[2] = 'media/level3-1a.png';
+    levels[3] = 'media/level3-2a.png';
+    levels[4] = 'media/level3-5a.png';
+
+    //levels[4] = IMG_SRC_LEVEL_1_4;
     levels[5] = IMG_SRC_LEVEL_1_5;
     levels[6] = IMG_SRC_LEVEL_2_1;
     levels[7] = IMG_SRC_LEVEL_2_2;
@@ -95,6 +101,9 @@ $(document).ready(function() {
     levels[13] = IMG_SRC_LEVEL_3_3;
     levels[14] = IMG_SRC_LEVEL_3_4;
     levels[15] = IMG_SRC_LEVEL_3_5;
+
+
+
 
     stars = new Array();
     stars[0] = 'media/star.png';
@@ -236,7 +245,7 @@ function renderShadow() {
             // i = red; i+1 = green; i+2 = blue; i+3 = alpha
             if(shadow.data[i] == BLACK && shadow.data[i+1] == BLACK && shadow.data[i+2] == BLACK) {
                 
-                if(pixels.data[i] == BLACK && pixels.data[i+1] == BLACK && pixels.data[i+2] == BLACK) {
+                if(pixels.data[i] < BLACK_LIMIT && pixels.data[i+1] < BLACK_LIMIT && pixels.data[i+2] < BLACK_LIMIT) {
                     pixels.data[i]   = 255;
                     pixels.data[i+1] = 0;
                     pixels.data[i+2] = 0;
@@ -325,14 +334,14 @@ function renderShadow() {
     } else {
         if (numErrors > ERROR_TOLERANCE) {
             crash.play();
-            $("#status").text("You failed!");
+            $("#status").text("You failed!" + numErrors);
             $("#score").text("Score: "+score);
 
 
         } else {
             success.play();
             score += 1;
-            $("#status").text("You won!");
+            $("#status").text("You won!" + numErrors);
             $("#score").text("Score: "+score);
 
 
@@ -340,8 +349,8 @@ function renderShadow() {
         setTimeout(function() {
             current_level = current_level + 1;
             current = current_level;
-            if (!levels[current_level]) {
-                console.log("You won!!!");
+            if (!levels[current_level]) { // if you reached the end
+                console.log("You won!!! END OF GAME");
             } else {
                 level_cycles = -5;
                 STOP = false;
@@ -361,7 +370,7 @@ function renderShadow() {
 
 function transEnd(e)
 {
-    console.log("transition ended");
+    //console.log("transition ended " + current_level);
     if (level_cycles > 0) {
         STOP = true;
     } 

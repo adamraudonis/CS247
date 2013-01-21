@@ -1,6 +1,6 @@
 
 // Images
-var IMG_SRC_TUTORIAL  = 'media/tutorialStart.png';
+var IMG_SRC_TUTORIAL  = 'media/tutorial-start.png';
 var IMG_SRC_LEVEL_1  = 'media/level1.png';
 var IMG_SRC_LEVEL_2  = 'media/level2.png';
 var IMG_SRC_LEVEL_3  = 'media/level3.png';

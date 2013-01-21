@@ -6,21 +6,21 @@ var IMG_SRC_TUTORIAL  = 'media/tutorial-start.png';
 //var IMG_SRC_LEVEL_3  = 'media/level3.png';
 
 
-var IMG_SRC_LEVEL_1_1  = 'media/level1-1.png';
-var IMG_SRC_LEVEL_1_2  = 'media/level1-2.png';
-var IMG_SRC_LEVEL_1_3  = 'media/level1-3.png';
-var IMG_SRC_LEVEL_1_4  = 'media/level1-4.png';
-var IMG_SRC_LEVEL_1_5  = 'media/level1-5.png';
-var IMG_SRC_LEVEL_2_1  = 'media/level1-1.png';
-var IMG_SRC_LEVEL_2_2  = 'media/level2-2.png';
-var IMG_SRC_LEVEL_2_3  = 'media/level2-3.png';
-var IMG_SRC_LEVEL_2_4  = 'media/level2-4.png';
-var IMG_SRC_LEVEL_2_5  = 'media/level2-5.png';
-var IMG_SRC_LEVEL_3_1  = 'media/level3-1.png';
-var IMG_SRC_LEVEL_3_2  = 'media/level3-2.png';
-var IMG_SRC_LEVEL_3_3  = 'media/level3-3.png';
-var IMG_SRC_LEVEL_3_4  = 'media/level3-4.png';
-var IMG_SRC_LEVEL_3_5  = 'media/level3-5.png';
+var IMG_SRC_LEVEL_1_1  = 'media/level1-1a.png';
+var IMG_SRC_LEVEL_1_2  = 'media/level1-2a.png';
+var IMG_SRC_LEVEL_1_3  = 'media/level1-3a.png';
+var IMG_SRC_LEVEL_1_4  = 'media/level1-4a.png';
+var IMG_SRC_LEVEL_1_5  = 'media/level1-5a.png';
+var IMG_SRC_LEVEL_2_1  = 'media/level2-1a.png';
+var IMG_SRC_LEVEL_2_2  = 'media/level2-2a.png';
+var IMG_SRC_LEVEL_2_3  = 'media/level2-3a.png';
+var IMG_SRC_LEVEL_2_4  = 'media/level2-4a.png';
+var IMG_SRC_LEVEL_2_5  = 'media/level2-5a.png';
+var IMG_SRC_LEVEL_3_1  = 'media/level3-1a.png';
+var IMG_SRC_LEVEL_3_2  = 'media/level3-2a.png';
+var IMG_SRC_LEVEL_3_3  = 'media/level3-3a.png';
+var IMG_SRC_LEVEL_3_4  = 'media/level3-4a.png';
+var IMG_SRC_LEVEL_3_5  = 'media/level3-5a.png';
 
 // Sounds
 var BEEP_LOW = 'media/beep_low.m4a';

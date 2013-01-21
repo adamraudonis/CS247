@@ -182,14 +182,22 @@ function renderShadow() {
             var el = document.getElementById("star1");
             el.style.top = "36%";
             el.style.left = "15%";
+            el.style.visibility = "visible";
             var el = document.getElementById("star2");
             el.style.top = "25%";
             el.style.left = "50%";
+            el.style.visibility = "visible";
+
             var el = document.getElementById("star3");
             el.style.top = "50%";
             el.style.left = "50%";
+            el.style.visibility = "visible";
+
         } 
         if (current_level == 2) {
+            document.getElementById("star1").style.visibility="visible";
+            document.getElementById("star2").style.visibility="visible";
+            document.getElementById("star3").style.visibility="visible";
             var el = document.getElementById("star1");
             el.style.top = "25%";
             el.style.left = "11%";
@@ -212,15 +220,9 @@ function renderShadow() {
             el.style.left = "63%";
         } 
         if (IN_TUTORIAL) {
-            var el = document.getElementById("star1");
-            el.style.top = "0%";
-            el.style.left = "0%";
-            var el = document.getElementById("star2");
-            el.style.top = "0%";
-            el.style.left = "0%";
-            var el = document.getElementById("star3");
-            el.style.top = "0%";
-            el.style.left = "0%";
+            document.getElementById("star1").style.visibility="hidden";
+            document.getElementById("star2").style.visibility="hidden";
+            document.getElementById("star3").style.visibility="hidden";
         }
         var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
 

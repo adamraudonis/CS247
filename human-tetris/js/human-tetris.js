@@ -124,8 +124,10 @@ function getElementPosition(theElement){
 
 function starTouch() {
     var img = getElementPosition(document.getElementById("star1"));
+    var canvas = document.getElementById("capture");
     console.log(img.x + "," + img.y);
-    index = (img.x-1)*(img.y-1)*4;
+    var w = canvas.style.width;
+    index = ((img.y)*(w-1)+img.x-1)*4;
     var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
 
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
@@ -134,8 +136,8 @@ function starTouch() {
     }
     img = getElementPosition(document.getElementById("star2"));
     console.log(img.x + "," + img.y);
-    index = (img.x-1)*(img.y-1)*4;
-
+	index = ((img.y)*(w-1)+img.x-1)*4;
+	
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 2 touched");
         star2Touch = true;
@@ -143,8 +145,8 @@ function starTouch() {
     }
     var img = getElementPosition(document.getElementById("star3"));
     console.log(img.x + "," + img.y);
-    index = (img.x-1)*(img.y-1)*4;
-
+	index = ((img.y)*(w-1)+img.x-1)*4;
+	
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 3 touched");
         star3Touch = true;
@@ -407,7 +409,7 @@ function transEnd(e)
     star1Touch = false;
 	star2Touch = false;
 	star3Touch = false;
-	setTimeout(function() {}, 1500);
+	setTimeout(function() {}, 2500);
 
 }
 

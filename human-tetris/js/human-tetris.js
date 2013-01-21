@@ -59,6 +59,11 @@ var levels;
 var stars;
 var score = 0;
 
+var star1Touch = false;
+var star2Touch = false;
+var star3Touch = false;
+
+
 $(document).ready(function() {
     stanfordImage = new Image();
     if (IN_TUTORIAL) {
@@ -118,31 +123,32 @@ function getElementPosition(theElement){
 }
 
 function starTouch() {
-    var image = getElementPosition(document.getElementById("star1"));
-    console.log(image.x + "," + image.y);
-    index = (image.x-1)*(image.y-1)*4;
+    var img = getElementPosition(document.getElementById("star1"));
+    console.log(img.x + "," + img.y);
+    index = (img.x-1)*(img.y-1)*4;
     var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
 
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 1 touched");
-        image.src = "media/starinvert.png";
+        star1Touch = true;
     }
-    image = getElementPosition(document.getElementById("star2"));
-    console.log(image.x + "," + image.y);
-    index = (image.x-1)*(image.y-1)*4;
+    img = getElementPosition(document.getElementById("star2"));
+    console.log(img.x + "," + img.y);
+    index = (img.x-1)*(img.y-1)*4;
 
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 2 touched");
-        image.src = "media/starinvert.png";
+        star2Touch = true;
 
     }
-    var image = getElementPosition(document.getElementById("star3"));
-    console.log(image.x + "," + image.y);
-    index = (image.x-1)*(image.y-1)*4;
+    var img = getElementPosition(document.getElementById("star3"));
+    console.log(img.x + "," + img.y);
+    index = (img.x-1)*(img.y-1)*4;
 
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 3 touched");
-        image.src = "media/starinvert.png";
+        star3Touch = true;
+
     }
 }
 
@@ -207,6 +213,7 @@ function renderShadow() {
             var el = document.getElementById("star3");
             el.style.top = "19%";
             el.style.left = "75%";
+            
         } 
         if (current_level == 3) {
             var el = document.getElementById("star1");
@@ -225,7 +232,12 @@ function renderShadow() {
             document.getElementById("star3").style.visibility="hidden";
         }
         var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
-
+		var el = document.getElementById("star1");
+		el.src = "media/star.png";
+		var el = document.getElementById("star2");
+		el.src = "media/star.png";
+		var el = document.getElementById("star3");
+		el.src = "media/star.png";
         // Now that the shadowContext has our jpeg painted, we can
         // loop pixel by pixel and only show the parts where the shadow lies.
         // 
@@ -353,7 +365,7 @@ function renderShadow() {
                 el.style["WebkitTransform"] = "scale(.5)";
                 setTimeout(renderShadow, 0);
             }
-        },1000);
+        },0);
         
     }
    // setTimeout(renderShadow, 0);
@@ -361,12 +373,42 @@ function renderShadow() {
 
 function transEnd(e)
 {
+	starTouch();
+	if (star1Touch == true) {
+		var img = document.getElementById("star1");
+		console.log(img.src);
+		img.src = "media/starinvert.png";
+		console.log("Star 1 inverted");
+	}
+	if (star2Touch == true) {
+		var img = document.getElementById("star2");
+		console.log(img.src);
+
+		img.src = "media/starinvert.png";
+		console.log("Star 2 inverted");
+
+	}
+	if (star3Touch == true) {
+		var img = document.getElementById("star3");
+		console.log(img.src);
+
+		img.src = "media/starinvert.png";
+		console.log("Star 3 inverted");
+
+	}
+	setTimeout(function() {
+		console.log("Time sleep");
+	}, 2000);
     console.log("transition ended");
     if (level_cycles > 0) {
         STOP = true;
     } 
     score += 1;
-    starTouch();
+    star1Touch = false;
+	star2Touch = false;
+	star3Touch = false;
+	setTimeout(function() {}, 1500);
+
 }
 
 function test()

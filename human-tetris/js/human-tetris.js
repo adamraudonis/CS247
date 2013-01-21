@@ -77,19 +77,10 @@ $(document).ready(function() {
 
     levels = new Array();
     levels[0] = IMG_SRC_TUTORIAL;
-    // levels[1] = IMG_SRC_LEVEL_1;
-    // levels[2] = IMG_SRC_LEVEL_2;
-    // levels[3] = IMG_SRC_LEVEL_3;
-    
-     levels[1] = IMG_SRC_LEVEL_1_1;
-    // levels[2] = IMG_SRC_LEVEL_1_2;
-    // levels[3] = IMG_SRC_LEVEL_1_3;
-
-    levels[2] = 'media/level3-1a.png';
-    levels[3] = 'media/level3-2a.png';
-    levels[4] = 'media/level3-5a.png';
-
-    //levels[4] = IMG_SRC_LEVEL_1_4;
+    levels[1] = IMG_SRC_LEVEL_1_1;
+    levels[2] = IMG_SRC_LEVEL_1_2;
+    levels[3] = IMG_SRC_LEVEL_1_3;
+    levels[4] = IMG_SRC_LEVEL_1_4;
     levels[5] = IMG_SRC_LEVEL_1_5;
     levels[6] = IMG_SRC_LEVEL_2_1;
     levels[7] = IMG_SRC_LEVEL_2_2;

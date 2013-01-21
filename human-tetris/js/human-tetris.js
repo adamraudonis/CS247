@@ -45,7 +45,7 @@ var WHITE  = 255;   // 0 = foreground, 255 = background
 var BLACK  = 0;
 var BLACK_LIMIT = 50;
 var STOP = false;
-var ERROR_TOLERANCE = 100;
+var ERROR_TOLERANCE = 200;
 var IN_TUTORIAL = true;
 var current_level = 1;
 var TUTORIAL_PIXELS = 15000; // The number of black pixels that must be in the door to start the countdown to play.
@@ -61,6 +61,9 @@ var stars;
 var score = 0;
 
 $(document).ready(function() {
+
+    $('.lvlstatusimg').hide();
+
     stanfordImage = new Image();
     if (IN_TUTORIAL) {
         stanfordImage.src = IMG_SRC_TUTORIAL;
@@ -92,9 +95,6 @@ $(document).ready(function() {
     levels[13] = IMG_SRC_LEVEL_3_3;
     levels[14] = IMG_SRC_LEVEL_3_4;
     levels[15] = IMG_SRC_LEVEL_3_5;
-
-
-
 
     stars = new Array();
     stars[0] = 'media/star.png';
@@ -156,6 +156,8 @@ function starTouch() {
 function renderShadow() {
     if (!background)    // if they haven't captured a background frame
         return;
+
+    $('.lvlstatusimg').hide();
 
     // shadowContext.scale(.999,.999);
     // rawCanvas.setAttribute("width",rawCanvas.width * .99);
@@ -327,6 +329,7 @@ function renderShadow() {
             crash.play();
             $("#status").text("You failed!" + numErrors);
             $("#score").text("Score: "+score);
+            $('#notclear').show();
 
 
         } else {
@@ -334,6 +337,9 @@ function renderShadow() {
             score += 1;
             $("#status").text("You won!" + numErrors);
             $("#score").text("Score: "+score);
+            $('#clear').show();
+
+
 
 
         }

@@ -15,7 +15,7 @@
 {
     width:640;
     height:480;
-    position:absolute;
+    position: absolute;
     top:50%;
     margin-top:-240px;
     margin-left:-320px;
@@ -25,6 +25,21 @@
         -webkit-transition: all 0s ease-in; /** Chrome & Safari **/
         -moz-transition: all 0s ease-in; /** Firefox **/
         -o-transition: all 0s ease-in; /** Opera **/
+}
+#star1 {
+    position: absolute;
+    top:0%;
+    left:0%;
+}
+#star2 {
+    position: absolute;
+    top:0%;
+    left:0%;
+}
+#star3 {
+    position: absolute;
+    top:0%;
+    left:0%;
 }
 /*
 div:hover
@@ -43,9 +58,13 @@ div:hover
         <button id="background">Capture Background</button>   
         <button id="test" onclick="test()">Test</button>  
         <button id="restart" onclick="restart()">Restart</button>  
-        <p id="tutorialtext">3</p>
+        <p id="tutorialtext">Countdown: 3</p>
+        <p id="score">Score: 0</p>
+        <p id="status">Status:</p>
         <div id="capture">
-                
+                <img id = "star1" class = "star" src="media/star.png" />
+                <img id = "star2" class = "star" src="media/star.png" />
+                <img id = "star3" class = "star" src="media/star.png" />
         </div>    
     </body>
 </html>

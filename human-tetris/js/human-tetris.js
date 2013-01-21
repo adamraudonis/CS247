@@ -5,6 +5,23 @@ var IMG_SRC_LEVEL_1  = 'media/level1.png';
 var IMG_SRC_LEVEL_2  = 'media/level2.png';
 var IMG_SRC_LEVEL_3  = 'media/level3.png';
 
+/*
+var IMG_SRC_LEVEL_1_1  = 'media/level1-1.png';
+var IMG_SRC_LEVEL_1_2  = 'media/level1-2.png';
+var IMG_SRC_LEVEL_1_3  = 'media/level1-3.png';
+var IMG_SRC_LEVEL_1_4  = 'media/level1-4.png';
+var IMG_SRC_LEVEL_1_5  = 'media/level1-5.png';
+var IMG_SRC_LEVEL_2_1  = 'media/level1-1.png';
+var IMG_SRC_LEVEL_2_2  = 'media/level2-2.png';
+var IMG_SRC_LEVEL_2_3  = 'media/level2-3.png';
+var IMG_SRC_LEVEL_2_4  = 'media/level2-4.png';
+var IMG_SRC_LEVEL_2_5  = 'media/level2-5.png';
+var IMG_SRC_LEVEL_3_1  = 'media/level3-1.png';
+var IMG_SRC_LEVEL_3_2  = 'media/level3-2.png';
+var IMG_SRC_LEVEL_3_3  = 'media/level3-3.png';
+var IMG_SRC_LEVEL_3_4  = 'media/level3-4.png';
+var IMG_SRC_LEVEL_3_5  = 'media/level3-5.png';
+*/
 // Sounds
 var BEEP_LOW = 'media/beep_low.m4a';
 var BEEP_HIGH = 'media/beep_high.m4a';
@@ -37,8 +54,10 @@ var LVL_CYCLE_INTERVAL = 10;
 
 var stanfordImage;
 var imageReady = false;
-
+var current;
 var levels;
+var stars;
+var score = 0;
 
 $(document).ready(function() {
     stanfordImage = new Image();
@@ -60,7 +79,73 @@ $(document).ready(function() {
     levels[1] = IMG_SRC_LEVEL_1;
     levels[2] = IMG_SRC_LEVEL_2;
     levels[3] = IMG_SRC_LEVEL_3;
+    /*
+    levels[1] = IMG_SRC_LEVEL_1_1;
+    levels[2] = IMG_SRC_LEVEL_1_2;
+    levels[3] = IMG_SRC_LEVEL_1_3;
+    levels[4] = IMG_SRC_LEVEL_1_4;
+    levels[5] = IMG_SRC_LEVEL_1_5;
+    levels[6] = IMG_SRC_LEVEL_2_1;
+    levels[7] = IMG_SRC_LEVEL_2_2;
+    levels[8] = IMG_SRC_LEVEL_2_3;
+    levels[9] = IMG_SRC_LEVEL_2_4;
+    levels[10] = IMG_SRC_LEVEL_2_5;
+    levels[11] = IMG_SRC_LEVEL_3_1;
+    levels[12] = IMG_SRC_LEVEL_3_2;
+    levels[13] = IMG_SRC_LEVEL_3_3;
+    levels[14] = IMG_SRC_LEVEL_3_4;
+    levels[15] = IMG_SRC_LEVEL_3_5;
+*/
+    stars = new Array();
+    stars[0] = 'media/star.png';
+    stars[1] = 'media/star.png';
+    stars[2] = 'media/star.png';
+    stars[3] = 'media/star.png';
 });
+
+function getElementPosition(theElement){
+  var posX = 0;
+  var posY = 0;
+              
+  while(theElement != null){
+    posX += theElement.offsetLeft;
+    posY += theElement.offsetTop;
+    theElement = theElement.offsetParent;
+  }
+                                      
+ return {x:posX,y:posY};
+
+}
+
+function starTouch() {
+    var image = getElementPosition(document.getElementById("star1"));
+    console.log(image.x + "," + image.y);
+    index = (image.x-1)*(image.y-1)*4;
+    var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
+
+    if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
+        console.log("Star 1 touched");
+        image.src = "media/starinvert.png";
+    }
+    image = getElementPosition(document.getElementById("star2"));
+    console.log(image.x + "," + image.y);
+    index = (image.x-1)*(image.y-1)*4;
+
+    if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
+        console.log("Star 2 touched");
+        image.src = "media/starinvert.png";
+
+    }
+    var image = getElementPosition(document.getElementById("star3"));
+    console.log(image.x + "," + image.y);
+    index = (image.x-1)*(image.y-1)*4;
+
+    if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
+        console.log("Star 3 touched");
+        image.src = "media/starinvert.png";
+    }
+}
+
 
 /*
  * In this example, we show you how to overlay the shadow information over
@@ -88,11 +173,55 @@ function renderShadow() {
 
     var numErrors = 0;
     var pixelsOnWhite = 0;
-
+    current = current_level;
     // Drawing from our image onto the canvas
     if (imageReady) {
         // draw the image over the entire canvas
-        shadowContext.drawImage(stanfordImage, 0, 0, shadowCanvas.width, shadowCanvas.height);    
+        shadowContext.drawImage(stanfordImage, 0, 0, shadowCanvas.width, shadowCanvas.height);
+        if (current_level == 1) {
+            var el = document.getElementById("star1");
+            el.style.top = "36%";
+            el.style.left = "15%";
+            var el = document.getElementById("star2");
+            el.style.top = "25%";
+            el.style.left = "50%";
+            var el = document.getElementById("star3");
+            el.style.top = "50%";
+            el.style.left = "50%";
+        } 
+        if (current_level == 2) {
+            var el = document.getElementById("star1");
+            el.style.top = "25%";
+            el.style.left = "11%";
+            var el = document.getElementById("star2");
+            el.style.top = "22%";
+            el.style.left = "44%";
+            var el = document.getElementById("star3");
+            el.style.top = "19%";
+            el.style.left = "75%";
+        } 
+        if (current_level == 3) {
+            var el = document.getElementById("star1");
+            el.style.top = "33%";
+            el.style.left = "33%";
+            var el = document.getElementById("star2");
+            el.style.top = "50%";
+            el.style.left = "45%";
+            var el = document.getElementById("star3");
+            el.style.top = "33%";
+            el.style.left = "63%";
+        } 
+        if (IN_TUTORIAL) {
+            var el = document.getElementById("star1");
+            el.style.top = "0%";
+            el.style.left = "0%";
+            var el = document.getElementById("star2");
+            el.style.top = "0%";
+            el.style.left = "0%";
+            var el = document.getElementById("star3");
+            el.style.top = "0%";
+            el.style.left = "0%";
+        }
         var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
 
         // Now that the shadowContext has our jpeg painted, we can
@@ -117,7 +246,6 @@ function renderShadow() {
                             pixelsOnWhite = pixelsOnWhite + 1;
                         }
                     };
-
                     pixels.data[i]   = shadow.data[i];
                     pixels.data[i+1] = shadow.data[i+1];
                     pixels.data[i+2] = shadow.data[i+2];
@@ -142,7 +270,7 @@ function renderShadow() {
                     stanfordImage.src = IMG_SRC_LEVEL_1;
                     var el = document.getElementById("capture");
                     el.style["WebkitTransition"] = "all 0s ease-in-out";
-                    el.style["WebkitTransform"] = "scale(.1)";
+                    el.style["WebkitTransform"] = "scale(.5)";
                     // Note: restart if no pixels in x cycles or end of game?
             };
         } else {
@@ -181,7 +309,7 @@ function renderShadow() {
             var el = document.getElementById("capture");
             el.addEventListener( 'webkitTransitionEnd', transEnd, false );
             el.style["WebkitTransition"] = "all 3s ease-in";
-            el.style["WebkitTransform"] = "scale(1.5)";
+            el.style["WebkitTransform"] = "scale(1)";
             level_cycles = 55; // prevent really big number.
         };
     };
@@ -195,13 +323,21 @@ function renderShadow() {
     } else {
         if (numErrors > ERROR_TOLERANCE) {
             crash.play();
-            console.log("You failed!");
+            $("#status").text("You failed!");
+            $("#score").text("Score: "+score);
+
+
         } else {
             success.play();
-            console.log("You won!");
+            score += 1;
+            $("#status").text("You won!");
+            $("#score").text("Score: "+score);
+
+
         }
         setTimeout(function() {
             current_level = current_level + 1;
+            current = current_level;
             if (!levels[current_level]) {
                 console.log("You won!!!");
             } else {
@@ -209,9 +345,10 @@ function renderShadow() {
                 STOP = false;
                 IN_TUTORIAL = false;
                 stanfordImage.src = levels[current_level];
+                current = current_level;
                 var el = document.getElementById("capture");
                 el.style["WebkitTransition"] = "all 0s ease-in-out";
-                el.style["WebkitTransform"] = "scale(.1)";
+                el.style["WebkitTransform"] = "scale(.5)";
                 setTimeout(renderShadow, 0);
             }
         },1000);
@@ -226,6 +363,8 @@ function transEnd(e)
     if (level_cycles > 0) {
         STOP = true;
     } 
+    score += 1;
+    starTouch();
 }
 
 function test()
@@ -253,8 +392,9 @@ function restart()
     var el = document.getElementById("capture");
     //el.style["transition-duration"] = "";
     el.style["WebkitTransition"] = "all .1s ease-in-out";
-    el.style["WebkitTransform"] = "scale(.7)";
+    el.style["WebkitTransform"] = "scale(1)";
     STOP = true;
+    current_level = 0;
     setTimeout(renderShadow, 0);
 }
 

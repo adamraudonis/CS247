@@ -1,11 +1,11 @@
 
 // Images
 var IMG_SRC_TUTORIAL  = 'media/tutorial-start.png';
-var IMG_SRC_LEVEL_1  = 'media/level1.png';
-var IMG_SRC_LEVEL_2  = 'media/level2.png';
-var IMG_SRC_LEVEL_3  = 'media/level3.png';
+//var IMG_SRC_LEVEL_1  = 'media/level1.png';
+//var IMG_SRC_LEVEL_2  = 'media/level2.png';
+//var IMG_SRC_LEVEL_3  = 'media/level3.png';
 
-/*
+
 var IMG_SRC_LEVEL_1_1  = 'media/level1-1.png';
 var IMG_SRC_LEVEL_1_2  = 'media/level1-2.png';
 var IMG_SRC_LEVEL_1_3  = 'media/level1-3.png';
@@ -21,7 +21,7 @@ var IMG_SRC_LEVEL_3_2  = 'media/level3-2.png';
 var IMG_SRC_LEVEL_3_3  = 'media/level3-3.png';
 var IMG_SRC_LEVEL_3_4  = 'media/level3-4.png';
 var IMG_SRC_LEVEL_3_5  = 'media/level3-5.png';
-*/
+
 // Sounds
 var BEEP_LOW = 'media/beep_low.m4a';
 var BEEP_HIGH = 'media/beep_high.m4a';
@@ -76,10 +76,10 @@ $(document).ready(function() {
 
     levels = new Array();
     levels[0] = IMG_SRC_TUTORIAL;
-    levels[1] = IMG_SRC_LEVEL_1;
-    levels[2] = IMG_SRC_LEVEL_2;
-    levels[3] = IMG_SRC_LEVEL_3;
-    /*
+    // levels[1] = IMG_SRC_LEVEL_1;
+    // levels[2] = IMG_SRC_LEVEL_2;
+    // levels[3] = IMG_SRC_LEVEL_3;
+    
     levels[1] = IMG_SRC_LEVEL_1_1;
     levels[2] = IMG_SRC_LEVEL_1_2;
     levels[3] = IMG_SRC_LEVEL_1_3;
@@ -95,7 +95,7 @@ $(document).ready(function() {
     levels[13] = IMG_SRC_LEVEL_3_3;
     levels[14] = IMG_SRC_LEVEL_3_4;
     levels[15] = IMG_SRC_LEVEL_3_5;
-*/
+
     stars = new Array();
     stars[0] = 'media/star.png';
     stars[1] = 'media/star.png';
@@ -269,7 +269,7 @@ function renderShadow() {
                     IN_TUTORIAL = false;
                     tutorial_cycles = 0;
                     level_cycles = 0;
-                    stanfordImage.src = IMG_SRC_LEVEL_1;
+                    stanfordImage.src = IMG_SRC_LEVEL_1_1;
                     var el = document.getElementById("capture");
                     el.style["WebkitTransition"] = "all 0s ease-in-out";
                     el.style["WebkitTransform"] = "scale(.5)";
@@ -311,7 +311,7 @@ function renderShadow() {
             var el = document.getElementById("capture");
             el.addEventListener( 'webkitTransitionEnd', transEnd, false );
             el.style["WebkitTransition"] = "all 3s ease-in";
-            el.style["WebkitTransform"] = "scale(1)";
+            el.style["WebkitTransform"] = "scale(1.5)";
             level_cycles = 55; // prevent really big number.
         };
     };
@@ -375,7 +375,7 @@ function test()
     var el = document.getElementById("capture");
     el.addEventListener( 'webkitTransitionEnd', transEnd, false );
     el.style["WebkitTransition"] = "all 3s ease-in";
-    el.style["WebkitTransform"] = "scale(1)";
+    el.style["WebkitTransform"] = "scale(1.5)";
 
 
     // $('#capture').animate({
@@ -394,7 +394,7 @@ function restart()
     var el = document.getElementById("capture");
     //el.style["transition-duration"] = "";
     el.style["WebkitTransition"] = "all .1s ease-in-out";
-    el.style["WebkitTransform"] = "scale(1)";
+    el.style["WebkitTransform"] = "scale(1.5)";
     STOP = true;
     current_level = 0;
     setTimeout(renderShadow, 0);

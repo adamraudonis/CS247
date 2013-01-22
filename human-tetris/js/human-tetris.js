@@ -45,7 +45,7 @@ var WHITE  = 255;   // 0 = foreground, 255 = background
 var BLACK  = 0;
 var BLACK_LIMIT = 50;
 var STOP = 0;
-var ERROR_TOLERANCE = 200;
+var ERROR_TOLERANCE = 1000;
 var IN_TUTORIAL = true;
 var current_level = 1;
 var TUTORIAL_PIXELS = 15000; // The number of black pixels that must be in the door to start the countdown to play.

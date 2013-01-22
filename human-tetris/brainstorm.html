@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+		<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+        <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+    </head>
+    <style>
+        body
+        {
+            background-image: url('media/background-pattern.png');
+        }
+    	#container
+    	{
+            -webkit-box-shadow: 0px 1px 10px rgba(50, 50, 50, 0.75);
+            -moz-box-shadow:    0px 1px 10px rgba(50, 50, 50, 0.75);
+            box-shadow:         0px 1px 10px rgba(50, 50, 50, 0.75);
+    		position:absolute;
+    		left:50%;
+    		margin-left: -320px;
+    		width:640px;
+    		height:480px;
+    		top:20px;
+    	}
+    	#header 
+    	{
+    		background-image: url('media/header.png');
+    		position:relative;
+    		height:90px;
+    	}
+    	#content
+    	{
+    		height:390px;
+    		background-color: #27aae1;
+    		background-image: url('media/footer.png');
+    		background-position: bottom;
+    		background-repeat: no-repeat;
+    	}
+    	#content-header
+    	{
+    		position:relative;
+    		text-align:center;
+    		top:0px;
+    		font-family:arial;
+    		font-size: 20px;
+    		color: #fff;
+    		text-decoration: underline;
+    	}
+    	#main-content
+    	{
+    		position: relative;
+    		padding: 20px;
+    		font-family:arial;
+    		font-size: 15px;
+    		color: #fff;
+    		text-shadow: 1px 2px 0 rgba(0,0,0, 0.3);
+    		background-color: rgba(255,255,255,0.2);
+    		margin: 10px;
+    		overflow:scroll;
+    		height:220px;
+    		-moz-border-radius:6px;
+		    -webkit-border-radius:6px;
+		    border-radius:6px;
+		    border:1px solid rgba(0,0,0,0.4);
+    	}
+    	#navigation, a {
+    		font-family:arial;
+    		text-transform:lowercase;
+    		padding: 10px;
+			text-decoration: none;
+			color: rgba(0,0,0,0.6);
+    	}
+    	#navigation, b {
+    		color: rgba(0,0,0,0.7);
+    	}
+    	a:hover
+    	{
+    		opacity:0.5;
+    	}
+    	#navigation ul
+		{
+			list-style-type:none;
+			margin:0;
+			padding:0;
+			text-align: center;
+		}
+		#navigation li
+		{
+			display:inline;
+		}
+    </style>
+    <body>
+    	<div id="container">
+	    	<div id="header"></div>
+	    	<div id="content">
+	    		<div id="content-header">
+		    		brainstorm list of ideas
+		    	</div>
+		    	<div id="main-content">
+		    	<ul>
+					<li>Music, colors, synthesia</li>
+					<li>Human Tetris/shape related matching. Japanese show.</li>
+					<li>Juggling</li>
+					<li>Showing scale.</li>
+					<li>Mimes</li>
+					<li>Generate a shadow - next iteration shadow changes randomly</li>
+					<li>Dance in front of a coke machine thing. Multiple people!</li>
+					<li>Password - do a series of actions to get the password</li>
+					<li>Shadow war - fight with your shadow</li>
+					<li>Guess shirt size from shadow - useful for buying clothes?</li>
+					<li>Recognize animal shapes from shadows</li>
+					<li>Fencing! With finger maybe? Light saber fight.</li>
+					<li>Virtual bow and arrow</li>
+					<li>Boxing</li>
+					<li>Skydiving</li>
+					<li>Teach Yoga</li>
+					<li>Throw something and a virtual dog fetches.</li>
+					<li>Shadow friends</li>
+					<li>Basketball</li>
+					<li>Teach tennis stoke</li>
+					<li>Wii baseball, tennis, etc.</li>
+					<li>Beer pong simulator</li>
+					<li>Angry birds</li>
+					<li>Virtual chopsticks - Rice Simulator 3000</li>
+					<li>Cooking Mama (chopping things)</li>
+					<li>Obstacle course - duck/jump - Mario for humans!</li>
+					<li>Virtual frat party - fend off creepers by elbowing them</li>
+					<li>Bus driver</li>
+					<li>Virtual flying</li>
+					<li>Posture corrector</li>
+					<li>Virtual gardener - pick up weeds</li>
+					<li>Jumping over objects -> virtual relay race</li>
+					<li>Falling objects have to catch or avoid</li>
+					<li>Fruit Ninja</li>
+					<li>Show shadow - Is it safe for kids?</li>
+					<li>Does it have pokey edges?</li>
+					<li>Is it a circle?</li>
+					<li>Identify the object</li>
+					<li>POKEMON. Which pokemon are you most similar too</li>
+					<li>Virtual garbage truck. hands up to dump trash</li>
+					<li>Drove the curiosity rover - explore different environments</li>
+					<li>Graph explorer - climb up bar charts. How big is big?</li>
+					<li>Collect shadows.</li>
+					<li>Transforms of shadows</li>
+					<li>Snowflake shadows</li>
+					<li>What’s your spirit animal?</li>
+					<li>Figure out how fast you are</li>
+					<li>Ice skating simulator</li>
+					<li>DDR with shadows</li>
+					<li>Escalator.</li>
+					<li>Human pictionary - charades</li>
+					<li>Draw things with shadows/gestures</li>
+					<li>Super Saiyan shadows</li>
+					<li>Throw a tennis ball, really a pokey ball.</li>
+					<li>Snowballs/build a snowman</li>
+					<li>Whack-a-mole</li>
+					<li>Log rolling/building climbing thing</li>
+					<li>How drunk are you?</li>
+					<li>Transform shadows into ghosts (at night)</li>
+					<li>Musical piano with shadows (which keys are occupied, every distinct shadow you add is a different tune)</li>
+					<li>Make beats with different shadow shapes</li>
+					<li>Elite beat agent - rhythm based game where you use your shadow to tap on beats</li>
+					<li>Control landing spacecraft</li>
+					<li>Steer a ship</li>
+					<li>Surfing/extreme sports simulator</li>
+					<li>Facebook simulator</li>
+					<li>Hurricane simulator</li>
+					<li>The sky is falling.</li>
+					<li>Tight shirts / dresses</li>
+					<li>Jump - Jump on Moon</li>
+				</ul>
+		    	</div>
+	    	</div>
+	    	<div id="navigation">
+		    	<ul>
+					<li><a href="index.html">home</a></li>
+					<li><a href="design-process.html">overview</a></li>
+					<li><b>brainstorm</b></li>
+					<li><a href="design-sketches.html">design sketches</a></li>
+					<li><a href="prototyping.html">prototyping</a></li>
+					<li><a href="video.html">video</a></li>
+				</ul>
+	    	</div>
+	    </div>
+    </body>
+</html>

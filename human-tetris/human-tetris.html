@@ -108,7 +108,7 @@ body {
 }
 #countdown {
     font-family: arial;
-    opacity: 0.7;
+    opacity: 0.8;
     color: red;
     font-size: 0px;
     font-weight: bold;
@@ -116,6 +116,17 @@ body {
     position:absolute;
     left:50%;
     top: 40%;
+    z-index: 1000;
+}
+#instructions {
+    width: 450px;
+    font-family: arial;
+    font-size: 25px;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    left:35%;
+    top:40%;
     z-index: 1000;
 }
 
@@ -140,34 +151,16 @@ div:hover
 */
     </style>
 
-    <script type="text/javascript">
-    $('document').ready(function() {
-        $('#clickme').click(function() {
-            $('#countdown').animate({
-                fontSize: "5em",
-            }, 1000, function() {
-                $('#countdown').css({
-                    fontSize: 0,
-                });
-                $('#countdown').text('2');
-            });
-        });
-    });
-        
-
-    </script>
-
     <body>
         <div id="side-cont">
-            <a class="button" id="background" href="#">start the game</a>   
+            <a class="button" id="background" href="#" onclick="$('#instructions').hide();">start the game</a>   
             <a class="button" id="restart" onclick="restart()" href="#">restart the game</a>
             <div id="text-cont">
-                <p id="tutorialtext">Countdown: 3</p>
                 <p id="score">Score: 0</p>
-                <p id="status">Status:</p>
             </div>
         </div>
         <div id="countdown">3</div>
+        <div id="instructions">Move away from the screen before pressing 'start the game' to set the background!</div>
         <div id="capture">
                 <img id = "star1" class = "star" src="media/star.png" />
                 <img id = "star2" class = "star" src="media/star.png" />

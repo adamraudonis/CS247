@@ -61,15 +61,9 @@ var stars;
 var score = 0;
 
 var star1Touch = false;
-var star2Touch = false;
-var star3Touch = false;
 
 var star1X;
 var star1Y;
-var star2X;
-var star2Y;
-var star3X;
-var star3Y;
 
 $(document).ready(function() {
 
@@ -109,9 +103,6 @@ $(document).ready(function() {
 
     stars = new Array();
     stars[0] = 'media/star.png';
-    stars[1] = 'media/star.png';
-    stars[2] = 'media/star.png';
-    stars[3] = 'media/star.png';
 });
 
 function getElementPosition(theElement){
@@ -130,45 +121,48 @@ function starTouch() {
     var w = $('#star1').width();
 
     console.log(star1X + "," + star1Y);
-    console.log("Star location is " + ((star1Y + h/2)*(640)+(star1X-1 +w/2)));
-    index = ((star1Y + h/2)*(640)+(star1X-1 +w/2))*4;
+    console.log("Star1 location is " + ((star1Y + Math.floor(h/2)*(640)+(star1X-1 +Math.floor(w/2)))));
+    index = ((star1Y + h)*(640)+(star1X-1 +w))*4;
     var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
 
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 1 touched");
-        star1Touch = true;
         score += 1;
+        console.log("Score changed");
         var img = document.getElementById("star1");
+        console.log("inverting");
 		img.src = "media/starinvert.png";
 		console.log("Star 1 inverted");
     }
-   	console.log(star2X + "," + star2Y);
-    console.log("Star location is " + ((star1Y + h/2)*(640)+(star1X-1 +w/2)));
-    index = ((star1Y + h/2)*(640)+(star1X-1 +w/2))*4;
-	
-	
+    index = ((star1Y)*(640)+(star1X-1 +w));
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
-        console.log("Star 2 touched");
-        star2Touch = true;
+        console.log("Star 1 touched");
         score += 1;
-        var img = document.getElementById("star2");
-		img.src = "media/starinvert.png";
-		console.log("Star 2 inverted");
-
-
+        console.log("Score changed");
+        var img = document.getElementById("star1");
+        console.log("inverting");
+        img.src = "media/starinvert.png";
+        console.log("Star 1 inverted");
     }
-    console.log(star3X + "," + star3Y);
-    console.log("Star location is " + ((star1Y + h/2)*(640)+(star1X-1 +w/2)));
-    index = ((star1Y + h/2)*(640)+(star1X-1 +w/2))*4;
-	
+    index += ((star1Y + h)*(640)+(star1X-1));
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
-        console.log("Star 3 touched");
-        star3Touch = true;
-		score += 1;
-		var img = document.getElementById("star3");
-		img.src = "media/starinvert.png";
-		console.log("Star 3 inverted");
-
+        console.log("Star 1 touched");
+        score += 1;
+        console.log("Score changed");
+        var img = document.getElementById("star1");
+        console.log("inverting");
+        img.src = "media/starinvert.png";
+        console.log("Star 1 inverted");
+    }
+    index += ((star1Y)*(640)+(star1X-1));
+    if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
+        console.log("Star 1 touched");
+        score += 1;
+        console.log("Score changed");
+        var img = document.getElementById("star1");
+        console.log("inverting");
+        img.src = "media/starinvert.png";
+        console.log("Star 1 inverted");
     }
 }
 
@@ -208,81 +202,134 @@ function renderShadow() {
         shadowContext.drawImage(stanfordImage, 0, 0, shadowCanvas.width, shadowCanvas.height);
         if (current_level == 1) {
             var el = document.getElementById("star1");
-            el.style.top = "20%";
-            el.style.left = "20%";
-            star1X = .20 * 640;
-            star1Y = .20 * 480;
-            el.style.visibility = "visible";
-            var el = document.getElementById("star2");
-            el.style.top = "40%";
-            el.style.left = "33%";
-            star2X = .40 * 640;
-            star2Y = .33 * 480;
-            el.style.visibility = "visible";
+            el.style.left = "90%";
 
-            var el = document.getElementById("star3");
-            el.style.top = "60%";
-            el.style.left = "80%";
-            star3X = .60 * 640;
-            star3Y = .80 * 480;
-            el.style.visibility = "visible";
+            el.style.top = "90%";
+            star1X = .90 * 640;
+            star1Y = .90 * 480;
+            el.style.visibility = "hidden";
 
         } 
         if (current_level == 2) {
-             var el = document.getElementById("star1");
-            el.style.top = "20%";
+            var el = document.getElementById("star1");
             el.style.left = "20%";
-            star1X = .20 * 640;
-            star1Y = .20 * 480;
-            el.style.visibility = "visible";
-            var el = document.getElementById("star2");
-            el.style.top = "80%";
-            el.style.left = "33%";
-            star2X = .80 * 640;
-            star2Y = .33 * 480;
-            el.style.visibility = "visible";
 
-            var el = document.getElementById("star3");
-            el.style.top = "50%";
-            el.style.left = "50%";
-            star3X = .50 * 640;
-            star3Y = .50 * 480;
-            el.style.visibility = "visible";
+            el.style.top = "90%";
+            star1X = .20 * 640;
+            star1Y = .90 * 480;
+            el.style.visibility = "hidden";
 
             
         } 
         if (current_level == 3) {
         	var el = document.getElementById("star1");
+            el.style.left = "30%";
+            el.style.top = "40%";
+            star1X = .30 * 640;
+            star1Y = .40 * 480;
+            el.style.visibility = "visible";
+        } 
+        if (current_level == 4) {
+            var el = document.getElementById("star1");
+            el.style.left = "40%";
+            el.style.top = "45%";
+            star1X = .40 * 640;
+            star1Y = .45 * 480;
+            el.style.visibility = "visible";
+        } 
+        if (current_level == 5) {
+            var el = document.getElementById("star1");
+            el.style.left = "30%";
             el.style.top = "50%";
-            el.style.left = "70%";
+            star1X = .30 * 640;
+            star1Y = .50 * 480;
+            el.style.visibility = "visible";
+        } 
+        if (current_level == 6) {
+            var el = document.getElementById("star1");
+            el.style.left = "40%";
+            el.style.top = "50%";
+            star1X = .40 * 640;
+            star1Y = .50 * 480;
+            el.style.visibility = "visible";
+        } 
+        if (current_level == 7) {
+            var el = document.getElementById("star1");
+            el.style.left = "50%";
+            el.style.top = "47%";
             star1X = .50 * 640;
+            star1Y = .47 * 480;
+            el.style.visibility = "visible";
+        } 
+        if (current_level == 8) {
+            var el = document.getElementById("star1");
+            el.style.left = "45%";
+            el.style.top = "25%";
+            star1X = .45 * 640;
+            star1Y = .25 * 480;
+            el.style.visibility = "visible";
+        } 
+        if (current_level == 9) {
+            var el = document.getElementById("star1");
+            el.style.left = "30%";
+            el.style.top = "40%";
+            star1X = .30 * 640;
+            star1Y = .40 * 480;
+            el.style.visibility = "visible";
+        } 
+        if (current_level == 10) {
+            var el = document.getElementById("star1");
+            el.style.left = "30%";
+            el.style.top = "70%";
+            star1X = .30 * 640;
             star1Y = .70 * 480;
             el.style.visibility = "visible";
-            var el = document.getElementById("star2");
-            el.style.top = "40%";
-            el.style.left = "66%";
-            star2X = .40 * 640;
-            star2Y = .66 * 480;
+        } 
+        if (current_level == 11) {
+            var el = document.getElementById("star1");
+            el.style.left = "55%";
+            el.style.top = "50%";
+            star1X = .55 * 640;
+            star1Y = .50 * 480;
+            el.style.visibility = "hidden";
+        } 
+        if (current_level == 12) {
+            var el = document.getElementById("star1");
+            el.style.left = "50%";
+            el.style.top = "90%";
+            star1X = .50 * 640;
+            star1Y = .90 * 480;
             el.style.visibility = "visible";
-
-            var el = document.getElementById("star3");
-            el.style.top = "75%";
+        } 
+        if (current_level == 13) {
+            var el = document.getElementById("star1");
+            el.style.left = "15%";
+            el.style.top = "90%";
+            star1X = .15 * 640;
+            star1Y = .90 * 480;
+            el.style.visibility = "visible";
+        } 
+        if (current_level == 14) {
+            var el = document.getElementById("star1");
+            el.style.left = "15%";
+            el.style.top = "90%";
+            star1X = .15 * 640;
+            star1Y = .90 * 480;
+            el.style.visibility = "visible";
+        } 
+        if (current_level == 15) {
+            var el = document.getElementById("star1");
             el.style.left = "90%";
-            star3X = .75 * 640;
-            star3Y = .90 * 480;
+            el.style.top = "40%";
+            star1X = .90 * 640;
+            star1Y = .40 * 480;
             el.style.visibility = "visible";
         } 
         if (IN_TUTORIAL) {
             document.getElementById("star1").style.visibility="hidden";
-            document.getElementById("star2").style.visibility="hidden";
-            document.getElementById("star3").style.visibility="hidden";
         }
         var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
 		var el = document.getElementById("star1");
-		el.src = "media/star.png";
-		var el = document.getElementById("star2");
-		el.src = "media/star.png";
-		var el = document.getElementById("star3");
 		el.src = "media/star.png";
         // Now that the shadowContext has our jpeg painted, we can
         // loop pixel by pixel and only show the parts where the shadow lies.

@@ -45,7 +45,7 @@ var WHITE  = 255;   // 0 = foreground, 255 = background
 var BLACK  = 0;
 var BLACK_LIMIT = 50;
 var STOP = 0;
-var ERROR_TOLERANCE = 200;
+var ERROR_TOLERANCE = 1000;
 var IN_TUTORIAL = true;
 var current_level = 1;
 var TUTORIAL_PIXELS = 15000; // The number of black pixels that must be in the door to start the countdown to play.
@@ -174,6 +174,8 @@ function starTouch() {
  * which draws the shadow in black on a white canvas.
  */
 function renderShadow() {
+    var win = document.getElementById("win");
+    win.style.display = "none";
     if (!background)    // if they haven't captured a background frame
         return;
 
@@ -208,7 +210,7 @@ function renderShadow() {
             el.style.visibility = "hidden";
 
         } 
-        if (current_level == 2) {
+       if (current_level == 2) {
             var el = document.getElementById("star1");
             el.style.left = "20%";
 
@@ -478,6 +480,8 @@ function renderShadow() {
             current_level = current_level + 1;
             current = current_level;
             if (!levels[current_level]) { // if you reached the end
+                var win = document.getElementById("win");
+                win.style.display = "inline";
                 console.log("You won!!! END OF GAME");
             } else {
                 console.log("HERE");
@@ -527,6 +531,8 @@ function test()
 
 function restart()
 {
+    var win = document.getElementById("win");
+    win.style.display = "none";
     var el = document.getElementById("capture");
     el.style["WebkitTransition"] = "all .1s ease-in-out";
     el.style["WebkitTransform"] = "scale(1.5)";

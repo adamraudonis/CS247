@@ -450,23 +450,12 @@ function renderShadow() {
 
 function transEnd(e)
 {
-<<<<<<< HEAD
     console.log("scale transition ended " + level_cycles);
     if (level_cycles > 0) {
         STOP = STOP + 1;
     } else {
         setTimeout(renderShadow, 0);
     }
-    //score += 1;
-    //starTouch();
-=======
-	starTouch();
-    console.log("transition ended");
-    if (level_cycles > 0) {
-        STOP = true;
-    } 
-
->>>>>>> c2f37f895b4c8695c7f08dc8e420d63a1cb4c753
 }
 
 function test()

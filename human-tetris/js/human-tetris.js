@@ -488,6 +488,7 @@ function restart()
     current_level = 0;
     level_cycles = 0;
     score = 0;
+    $("#score").text("Score: 0");
     IN_TUTORIAL = true;
     setTimeout(renderShadow, 0);
 }

@@ -318,22 +318,50 @@ function renderShadow() {
         level_cycles = level_cycles + 1;
 
         if (level_cycles == 1) {
-            $("#tutorialtext").text("3");
+            $('#countdown').animate({
+                fontSize: "10em",
+                left: "47%",
+            }, 1000, function() {
+                $('#countdown').css({
+                    fontSize: 0,
+                });
+                $('#countdown').text('2');
+            });
+
+           // $("#tutorialtext").text("3");
         } 
         if (level_cycles == LVL_CYCLE_INTERVAL) {
            // buffers automatically when created
             beep_low.play();
-
-            $("#tutorialtext").text("2");
+            $('#countdown').animate({
+                fontSize: "10em",
+                left: "47%",
+            }, 1000, function() {
+                $('#countdown').css({
+                    fontSize: 0,
+                });
+                $('#countdown').text('1');
+            });
+            //$("#tutorialtext").text("2");
         } 
         if (level_cycles == LVL_CYCLE_INTERVAL * 2) {
             beep_low2.play();
-            $("#tutorialtext").text("1");
+            $('#countdown').animate({
+                fontSize: "10em",
+                left: "47%",
+            }, 1000, function() {
+                $('#countdown').css({
+                    fontSize: 0,
+                });
+                $('#countdown').text('3');
+            });
+            //$("#tutorialtext").text("1");
         } 
         if (level_cycles == LVL_CYCLE_INTERVAL * 3) {
             rumble.play();
             beep_high.play();
-            $("#tutorialtext").text("Start");
+            
+            //$("#tutorialtext").text("Start");
 
 
             var el = document.getElementById("capture");
@@ -426,11 +454,14 @@ function test()
 function restart()
 {
     var el = document.getElementById("capture");
-    //el.style["transition-duration"] = "";
     el.style["WebkitTransition"] = "all .1s ease-in-out";
     el.style["WebkitTransform"] = "scale(1.5)";
-    STOP = true;
+    stanfordImage.src = IMG_SRC_TUTORIAL;
+    STOP = false;
     current_level = 0;
+    level_cycles = 0;
+    score = 0;
+    IN_TUTORIAL = true;
     setTimeout(renderShadow, 0);
 }
 

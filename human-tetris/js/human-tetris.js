@@ -86,8 +86,8 @@ $(document).ready(function() {
     levels = new Array();
     levels[0] = IMG_SRC_TUTORIAL;
     levels[1] = IMG_SRC_LEVEL_1_1;
-    levels[2] = IMG_SRC_LEVEL_1_2;
-    levels[3] = IMG_SRC_LEVEL_1_3;
+    levels[2] = IMG_SRC_LEVEL_2_3;
+    levels[3] = IMG_SRC_LEVEL_2_5;
     levels[4] = IMG_SRC_LEVEL_1_4;
     levels[5] = IMG_SRC_LEVEL_1_5;
     levels[6] = IMG_SRC_LEVEL_2_1;
@@ -208,7 +208,7 @@ function renderShadow() {
             el.style.visibility = "hidden";
 
         } 
-        if (current_level == 2) {
+       /* if (current_level == 2) {
             var el = document.getElementById("star1");
             el.style.left = "20%";
 
@@ -226,7 +226,7 @@ function renderShadow() {
             star1X = .30 * 640;
             star1Y = .40 * 480;
             el.style.visibility = "visible";
-        } 
+        } */
         if (current_level == 4) {
             var el = document.getElementById("star1");
             el.style.left = "40%";
@@ -259,7 +259,7 @@ function renderShadow() {
             star1Y = .47 * 480;
             el.style.visibility = "visible";
         } 
-        if (current_level == 8) {
+        if (current_level == 2) {
             var el = document.getElementById("star1");
             el.style.left = "45%";
             el.style.top = "25%";
@@ -275,7 +275,7 @@ function renderShadow() {
             star1Y = .40 * 480;
             el.style.visibility = "visible";
         } 
-        if (current_level == 10) {
+        if (current_level == 3) {
             var el = document.getElementById("star1");
             el.style.left = "30%";
             el.style.top = "70%";

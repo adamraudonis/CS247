@@ -1,27 +1,27 @@
 
 // Images
 var IMG_SRC_TUTORIAL  = 'media/tutorial-start.png';
-var IMG_SRC_LEVEL_1  = 'media/level1.png';
-var IMG_SRC_LEVEL_2  = 'media/level2.png';
-var IMG_SRC_LEVEL_3  = 'media/level3.png';
+//var IMG_SRC_LEVEL_1  = 'media/level1.png';
+//var IMG_SRC_LEVEL_2  = 'media/level2.png';
+//var IMG_SRC_LEVEL_3  = 'media/level3.png';
 
-/*
-var IMG_SRC_LEVEL_1_1  = 'media/level1-1.png';
-var IMG_SRC_LEVEL_1_2  = 'media/level1-2.png';
-var IMG_SRC_LEVEL_1_3  = 'media/level1-3.png';
-var IMG_SRC_LEVEL_1_4  = 'media/level1-4.png';
-var IMG_SRC_LEVEL_1_5  = 'media/level1-5.png';
-var IMG_SRC_LEVEL_2_1  = 'media/level1-1.png';
-var IMG_SRC_LEVEL_2_2  = 'media/level2-2.png';
-var IMG_SRC_LEVEL_2_3  = 'media/level2-3.png';
-var IMG_SRC_LEVEL_2_4  = 'media/level2-4.png';
-var IMG_SRC_LEVEL_2_5  = 'media/level2-5.png';
-var IMG_SRC_LEVEL_3_1  = 'media/level3-1.png';
-var IMG_SRC_LEVEL_3_2  = 'media/level3-2.png';
-var IMG_SRC_LEVEL_3_3  = 'media/level3-3.png';
-var IMG_SRC_LEVEL_3_4  = 'media/level3-4.png';
-var IMG_SRC_LEVEL_3_5  = 'media/level3-5.png';
-*/
+
+var IMG_SRC_LEVEL_1_1  = 'media/level1-1a.png';
+var IMG_SRC_LEVEL_1_2  = 'media/level1-2a.png';
+var IMG_SRC_LEVEL_1_3  = 'media/level1-3a.png';
+var IMG_SRC_LEVEL_1_4  = 'media/level1-4a.png';
+var IMG_SRC_LEVEL_1_5  = 'media/level1-5a.png';
+var IMG_SRC_LEVEL_2_1  = 'media/level2-1a.png';
+var IMG_SRC_LEVEL_2_2  = 'media/level2-2a.png';
+var IMG_SRC_LEVEL_2_3  = 'media/level2-3a.png';
+var IMG_SRC_LEVEL_2_4  = 'media/level2-4a.png';
+var IMG_SRC_LEVEL_2_5  = 'media/level2-5a.png';
+var IMG_SRC_LEVEL_3_1  = 'media/level3-1a.png';
+var IMG_SRC_LEVEL_3_2  = 'media/level3-2a.png';
+var IMG_SRC_LEVEL_3_3  = 'media/level3-3a.png';
+var IMG_SRC_LEVEL_3_4  = 'media/level3-4a.png';
+var IMG_SRC_LEVEL_3_5  = 'media/level3-5a.png';
+
 // Sounds
 var BEEP_LOW = 'media/beep_low.m4a';
 var BEEP_HIGH = 'media/beep_high.m4a';
@@ -43,8 +43,9 @@ var success = new Audio(SUCCESS);
 
 var WHITE  = 255;   // 0 = foreground, 255 = background
 var BLACK  = 0;
+var BLACK_LIMIT = 50;
 var STOP = false;
-var ERROR_TOLERANCE = 5;
+var ERROR_TOLERANCE = 200;
 var IN_TUTORIAL = true;
 var current_level = 1;
 var TUTORIAL_PIXELS = 15000; // The number of black pixels that must be in the door to start the countdown to play.
@@ -60,6 +61,9 @@ var stars;
 var score = 0;
 
 $(document).ready(function() {
+
+    $('.lvlstatusimg').hide();
+
     stanfordImage = new Image();
     if (IN_TUTORIAL) {
         stanfordImage.src = IMG_SRC_TUTORIAL;
@@ -76,10 +80,6 @@ $(document).ready(function() {
 
     levels = new Array();
     levels[0] = IMG_SRC_TUTORIAL;
-    levels[1] = IMG_SRC_LEVEL_1;
-    levels[2] = IMG_SRC_LEVEL_2;
-    levels[3] = IMG_SRC_LEVEL_3;
-    /*
     levels[1] = IMG_SRC_LEVEL_1_1;
     levels[2] = IMG_SRC_LEVEL_1_2;
     levels[3] = IMG_SRC_LEVEL_1_3;
@@ -95,7 +95,7 @@ $(document).ready(function() {
     levels[13] = IMG_SRC_LEVEL_3_3;
     levels[14] = IMG_SRC_LEVEL_3_4;
     levels[15] = IMG_SRC_LEVEL_3_5;
-*/
+
     stars = new Array();
     stars[0] = 'media/star.png';
     stars[1] = 'media/star.png';
@@ -156,6 +156,8 @@ function starTouch() {
 function renderShadow() {
     if (!background)    // if they haven't captured a background frame
         return;
+
+    $('.lvlstatusimg').hide();
 
     // shadowContext.scale(.999,.999);
     // rawCanvas.setAttribute("width",rawCanvas.width * .99);
@@ -236,7 +238,7 @@ function renderShadow() {
             // i = red; i+1 = green; i+2 = blue; i+3 = alpha
             if(shadow.data[i] == BLACK && shadow.data[i+1] == BLACK && shadow.data[i+2] == BLACK) {
                 
-                if(pixels.data[i] == BLACK && pixels.data[i+1] == BLACK && pixels.data[i+2] == BLACK) {
+                if(pixels.data[i] < BLACK_LIMIT && pixels.data[i+1] < BLACK_LIMIT && pixels.data[i+2] < BLACK_LIMIT) {
                     pixels.data[i]   = 255;
                     pixels.data[i+1] = 0;
                     pixels.data[i+2] = 0;
@@ -269,7 +271,7 @@ function renderShadow() {
                     IN_TUTORIAL = false;
                     tutorial_cycles = 0;
                     level_cycles = 0;
-                    stanfordImage.src = IMG_SRC_LEVEL_1;
+                    stanfordImage.src = IMG_SRC_LEVEL_1_1;
                     var el = document.getElementById("capture");
                     el.style["WebkitTransition"] = "all 0s ease-in-out";
                     el.style["WebkitTransform"] = "scale(.5)";
@@ -339,7 +341,7 @@ function renderShadow() {
             var el = document.getElementById("capture");
             el.addEventListener( 'webkitTransitionEnd', transEnd, false );
             el.style["WebkitTransition"] = "all 3s ease-in";
-            el.style["WebkitTransform"] = "scale(1)";
+            el.style["WebkitTransform"] = "scale(1.5)";
             level_cycles = 55; // prevent really big number.
         };
     };
@@ -353,23 +355,27 @@ function renderShadow() {
     } else {
         if (numErrors > ERROR_TOLERANCE) {
             crash.play();
-            $("#status").text("You failed!");
+            $("#status").text("You failed!" + numErrors);
             $("#score").text("Score: "+score);
+            $('#notclear').show();
 
 
         } else {
             success.play();
             score += 1;
-            $("#status").text("You won!");
+            $("#status").text("You won!" + numErrors);
             $("#score").text("Score: "+score);
+            $('#clear').show();
+
+
 
 
         }
         setTimeout(function() {
             current_level = current_level + 1;
             current = current_level;
-            if (!levels[current_level]) {
-                console.log("You won!!!");
+            if (!levels[current_level]) { // if you reached the end
+                console.log("You won!!! END OF GAME");
             } else {
                 level_cycles = -5;
                 STOP = false;
@@ -389,7 +395,7 @@ function renderShadow() {
 
 function transEnd(e)
 {
-    console.log("transition ended");
+    //console.log("transition ended " + current_level);
     if (level_cycles > 0) {
         STOP = true;
     } 
@@ -403,7 +409,7 @@ function test()
     var el = document.getElementById("capture");
     el.addEventListener( 'webkitTransitionEnd', transEnd, false );
     el.style["WebkitTransition"] = "all 3s ease-in";
-    el.style["WebkitTransform"] = "scale(1)";
+    el.style["WebkitTransform"] = "scale(1.5)";
 
 
     // $('#capture').animate({
@@ -420,11 +426,14 @@ function test()
 function restart()
 {
     var el = document.getElementById("capture");
-    //el.style["transition-duration"] = "";
     el.style["WebkitTransition"] = "all .1s ease-in-out";
-    el.style["WebkitTransform"] = "scale(1)";
-    STOP = true;
+    el.style["WebkitTransform"] = "scale(1.5)";
+    stanfordImage.src = IMG_SRC_TUTORIAL;
+    STOP = false;
     current_level = 0;
+    level_cycles = 0;
+    score = 0;
+    IN_TUTORIAL = true;
     setTimeout(renderShadow, 0);
 }
 

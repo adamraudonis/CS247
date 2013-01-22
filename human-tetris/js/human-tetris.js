@@ -174,6 +174,8 @@ function starTouch() {
  * which draws the shadow in black on a white canvas.
  */
 function renderShadow() {
+    var win = document.getElementById("win");
+    win.style.display = "none";
     if (!background)    // if they haven't captured a background frame
         return;
 
@@ -478,6 +480,8 @@ function renderShadow() {
             current_level = current_level + 1;
             current = current_level;
             if (!levels[current_level]) { // if you reached the end
+                var win = document.getElementById("win");
+                win.style.display = "inline";
                 console.log("You won!!! END OF GAME");
             } else {
                 console.log("HERE");
@@ -527,6 +531,8 @@ function test()
 
 function restart()
 {
+    var win = document.getElementById("win");
+    win.style.display = "none";
     var el = document.getElementById("capture");
     el.style["WebkitTransition"] = "all .1s ease-in-out";
     el.style["WebkitTransform"] = "scale(1.5)";

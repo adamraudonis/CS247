@@ -398,11 +398,14 @@ function test()
 function restart()
 {
     var el = document.getElementById("capture");
-    //el.style["transition-duration"] = "";
     el.style["WebkitTransition"] = "all .1s ease-in-out";
     el.style["WebkitTransform"] = "scale(1.5)";
-    STOP = true;
+    stanfordImage.src = IMG_SRC_TUTORIAL;
+    STOP = false;
     current_level = 0;
+    level_cycles = 0;
+    score = 0;
+    IN_TUTORIAL = true;
     setTimeout(renderShadow, 0);
 }
 

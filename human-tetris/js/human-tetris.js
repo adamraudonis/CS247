@@ -64,6 +64,12 @@ var star1Touch = false;
 var star2Touch = false;
 var star3Touch = false;
 
+var star1X;
+var star1Y;
+var star2X;
+var star2Y;
+var star3X;
+var star3Y;
 
 $(document).ready(function() {
 
@@ -111,22 +117,21 @@ $(document).ready(function() {
 function getElementPosition(theElement){
   var posX = 0;
   var posY = 0;
-              
-  while(theElement != null){
-    posX += theElement.offsetLeft;
-    posY += theElement.offsetTop;
-    theElement = theElement.offsetParent;
-  }
-                                      
- return {x:posX,y:posY};
+  var offset = theElement.offset();
+                             
+ return {x:offset.left,y:posY.offset.top};
 
 }
 
 function starTouch() {
-    var img = getElementPosition(document.getElementById("star1"));
     var canvas = document.getElementById("capture");
-    console.log(img.x + "," + img.y);
-    index = ((img.y)*(479)+img.x-1)*4;
+    var offset = $('#star1').offset();
+    var h = $('#star1').height();
+    var w = $('#star1').width();
+
+    console.log(star1X + "," + star1Y);
+    console.log("Star location is " + ((star1Y + h/2)*(640)+(star1X-1 +w/2)));
+    index = ((star1Y + h/2)*(640)+(star1X-1 +w/2))*4;
     var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
 
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
@@ -137,9 +142,10 @@ function starTouch() {
 		img.src = "media/starinvert.png";
 		console.log("Star 1 inverted");
     }
-    img = getElementPosition(document.getElementById("star2"));
-    console.log(img.x + "," + img.y);
-	index = ((img.y)*(479)+img.x-1)*4;
+   	console.log(star2X + "," + star2Y);
+    console.log("Star location is " + ((star1Y + h/2)*(640)+(star1X-1 +w/2)));
+    index = ((star1Y + h/2)*(640)+(star1X-1 +w/2))*4;
+	
 	
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 2 touched");
@@ -151,9 +157,9 @@ function starTouch() {
 
 
     }
-    var img = getElementPosition(document.getElementById("star3"));
-    console.log(img.x + "," + img.y);
-	index = ((img.y)*(479)+img.x-1)*4;
+    console.log(star3X + "," + star3Y);
+    console.log("Star location is " + ((star1Y + h/2)*(640)+(star1X-1 +w/2)));
+    index = ((star1Y + h/2)*(640)+(star1X-1 +w/2))*4;
 	
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 3 touched");
@@ -202,45 +208,69 @@ function renderShadow() {
         shadowContext.drawImage(stanfordImage, 0, 0, shadowCanvas.width, shadowCanvas.height);
         if (current_level == 1) {
             var el = document.getElementById("star1");
-            el.style.top = "36%";
-            el.style.left = "15%";
+            el.style.top = "20%";
+            el.style.left = "20%";
+            star1X = .20 * 640;
+            star1Y = .20 * 480;
             el.style.visibility = "visible";
             var el = document.getElementById("star2");
-            el.style.top = "25%";
-            el.style.left = "50%";
+            el.style.top = "40%";
+            el.style.left = "33%";
+            star2X = .40 * 640;
+            star2Y = .33 * 480;
             el.style.visibility = "visible";
 
             var el = document.getElementById("star3");
-            el.style.top = "50%";
-            el.style.left = "50%";
+            el.style.top = "60%";
+            el.style.left = "80%";
+            star3X = .60 * 640;
+            star3Y = .80 * 480;
             el.style.visibility = "visible";
 
         } 
         if (current_level == 2) {
-            document.getElementById("star1").style.visibility="visible";
-            document.getElementById("star2").style.visibility="visible";
-            document.getElementById("star3").style.visibility="visible";
-            var el = document.getElementById("star1");
-            el.style.top = "25%";
-            el.style.left = "11%";
+             var el = document.getElementById("star1");
+            el.style.top = "20%";
+            el.style.left = "20%";
+            star1X = .20 * 640;
+            star1Y = .20 * 480;
+            el.style.visibility = "visible";
             var el = document.getElementById("star2");
-            el.style.top = "22%";
-            el.style.left = "44%";
+            el.style.top = "80%";
+            el.style.left = "33%";
+            star2X = .80 * 640;
+            star2Y = .33 * 480;
+            el.style.visibility = "visible";
+
             var el = document.getElementById("star3");
-            el.style.top = "19%";
-            el.style.left = "75%";
+            el.style.top = "50%";
+            el.style.left = "50%";
+            star3X = .50 * 640;
+            star3Y = .50 * 480;
+            el.style.visibility = "visible";
+
             
         } 
         if (current_level == 3) {
-            var el = document.getElementById("star1");
-            el.style.top = "33%";
-            el.style.left = "33%";
-            var el = document.getElementById("star2");
+        	var el = document.getElementById("star1");
             el.style.top = "50%";
-            el.style.left = "45%";
+            el.style.left = "70%";
+            star1X = .50 * 640;
+            star1Y = .70 * 480;
+            el.style.visibility = "visible";
+            var el = document.getElementById("star2");
+            el.style.top = "40%";
+            el.style.left = "66%";
+            star2X = .40 * 640;
+            star2Y = .66 * 480;
+            el.style.visibility = "visible";
+
             var el = document.getElementById("star3");
-            el.style.top = "33%";
-            el.style.left = "63%";
+            el.style.top = "75%";
+            el.style.left = "90%";
+            star3X = .75 * 640;
+            star3Y = .90 * 480;
+            el.style.visibility = "visible";
         } 
         if (IN_TUTORIAL) {
             document.getElementById("star1").style.visibility="hidden";
@@ -398,6 +428,9 @@ function renderShadow() {
 
         }
         setTimeout(function() {
+        	starTouch();
+        }, 0);
+        setTimeout(function() {
             current_level = current_level + 1;
             current = current_level;
             if (!levels[current_level]) { // if you reached the end
@@ -413,7 +446,7 @@ function renderShadow() {
                 el.style["WebkitTransform"] = "scale(.5)";
                 setTimeout(renderShadow, 0);
             }
-        },0);
+        },1000);
         
     }
    // setTimeout(renderShadow, 0);
@@ -426,8 +459,6 @@ function transEnd(e)
     if (level_cycles > 0) {
         STOP = true;
     } 
-
-	setTimeout(function() {}, 3000);
 
 }
 

@@ -10,9 +10,14 @@
 
     </head>
     <style>
-
+body {
+    background-image: url('media/background-pattern.png');
+}
 #capture
 {
+    -webkit-box-shadow: 0px 1px 10px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    0px 1px 10px rgba(50, 50, 50, 0.75);
+    box-shadow:         0px 1px 10px rgba(50, 50, 50, 0.75);
     width:640;
     height:480;
     position: absolute;
@@ -44,6 +49,75 @@
     left:0%;
     visibility: hidden;
 }
+.button {
+    margin-bottom: 5px;
+    width: 150px;
+    -moz-box-shadow:inset 0px 1px 0px 0px #f4fbfc;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #f4fbfc;
+    box-shadow:inset 0px 1px 0px 0px #f4fbfc;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #addbed), color-stop(1, #45b8e6) );
+    background:-moz-linear-gradient( center top, #addbed 5%, #45b8e6 100% );
+    background-color:#addbed;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #888;
+    display:inline-block;
+    color:#ffffff;
+    font-family:arial;
+    font-size:20px;
+    padding:6px 24px;
+    text-align: center;
+    text-decoration:none;
+    text-shadow:1px 1px 0px #3ba1b3;
+}.button:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7bcef2), color-stop(1, #baf0f5) );
+    background:-moz-linear-gradient( center top, #7bcef2 5%, #baf0f5 100% );
+    background-color:#7bcef2;
+}.button:active {
+    position:relative;
+    top:1px;
+}
+
+#side-cont {
+    position:absolute;
+    top:53px;
+    padding:10px;
+    width:220px;
+    height: 100%;
+}
+#text-cont {
+    position: relative;
+    top: 10px;
+    -webkit-box-shadow: 0px 1px 5px rgba(50, 50, 50, 0.2);
+    -moz-box-shadow:    0px 1px 5px rgba(50, 50, 50, 0.2);
+    box-shadow:         0px 1px 5px rgba(50, 50, 50, 0.2);
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    width: 200px;
+    border-radius:6px;
+    background-color: rgba(69,184,230, 0.2);
+    border: 1px solid rgba(0,0,0, 0.3);
+}
+#tutorialtext, #score, #status {
+    font-family: arial;
+    font-size: 22px;
+    text-shadow: 1px 1px 0px #3ba1b3;
+    color: #fff;
+    padding-left:20px;
+}
+#countdown {
+    font-family: arial;
+    opacity: 0.7;
+    color: red;
+    font-size: 0px;
+    font-weight: bold;
+    -webkit-text-stroke: 1px black;
+    position:absolute;
+    left:50%;
+    top: 40%;
+    z-index: 1000;
+}
 /*
 div:hover
 {
@@ -57,13 +131,34 @@ div:hover
 */
     </style>
 
+    <script type="text/javascript">
+    $('document').ready(function() {
+        $('#clickme').click(function() {
+            $('#countdown').animate({
+                fontSize: "5em",
+            }, 1000, function() {
+                $('#countdown').css({
+                    fontSize: 0,
+                });
+                $('#countdown').text('2');
+            });
+        });
+    });
+        
+
+    </script>
+
     <body>
-        <button id="background">Capture Background</button>   
-        <button id="test" onclick="test()">Test</button>  
-        <button id="restart" onclick="restart()">Restart</button>  
-        <p id="tutorialtext">Countdown: 3</p>
-        <p id="score">Score: 0</p>
-        <p id="status">Status:</p>
+        <div id="side-cont">
+            <a class="button" id="background" href="#">start the game</a>   
+            <a class="button" id="restart" onclick="restart()" href="#">restart the game</a>
+            <div id="text-cont">
+                <p id="tutorialtext">Countdown: 3</p>
+                <p id="score">Score: 0</p>
+                <p id="status">Status:</p>
+            </div>
+        </div>
+        <div id="countdown">3</div>
         <div id="capture">
                 <img id = "star1" class = "star" src="media/star.png" />
                 <img id = "star2" class = "star" src="media/star.png" />

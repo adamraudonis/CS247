@@ -60,6 +60,17 @@ var levels;
 var stars;
 var score = 0;
 
+var star1Touch = false;
+var star2Touch = false;
+var star3Touch = false;
+
+var star1X;
+var star1Y;
+var star2X;
+var star2Y;
+var star3X;
+var star3Y;
+
 $(document).ready(function() {
 
     $('.lvlstatusimg').hide();
@@ -106,43 +117,58 @@ $(document).ready(function() {
 function getElementPosition(theElement){
   var posX = 0;
   var posY = 0;
-              
-  while(theElement != null){
-    posX += theElement.offsetLeft;
-    posY += theElement.offsetTop;
-    theElement = theElement.offsetParent;
-  }
-                                      
- return {x:posX,y:posY};
+  var offset = theElement.offset();
+                             
+ return {x:offset.left,y:posY.offset.top};
 
 }
 
 function starTouch() {
-    var image = getElementPosition(document.getElementById("star1"));
-    console.log(image.x + "," + image.y);
-    index = (image.x-1)*(image.y-1)*4;
+    var canvas = document.getElementById("capture");
+    var offset = $('#star1').offset();
+    var h = $('#star1').height();
+    var w = $('#star1').width();
+
+    console.log(star1X + "," + star1Y);
+    console.log("Star location is " + ((star1Y + h/2)*(640)+(star1X-1 +w/2)));
+    index = ((star1Y + h/2)*(640)+(star1X-1 +w/2))*4;
     var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
 
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 1 touched");
-        image.src = "media/starinvert.png";
+        star1Touch = true;
+        score += 1;
+        var img = document.getElementById("star1");
+		img.src = "media/starinvert.png";
+		console.log("Star 1 inverted");
     }
-    image = getElementPosition(document.getElementById("star2"));
-    console.log(image.x + "," + image.y);
-    index = (image.x-1)*(image.y-1)*4;
-
+   	console.log(star2X + "," + star2Y);
+    console.log("Star location is " + ((star1Y + h/2)*(640)+(star1X-1 +w/2)));
+    index = ((star1Y + h/2)*(640)+(star1X-1 +w/2))*4;
+	
+	
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 2 touched");
-        image.src = "media/starinvert.png";
+        star2Touch = true;
+        score += 1;
+        var img = document.getElementById("star2");
+		img.src = "media/starinvert.png";
+		console.log("Star 2 inverted");
+
 
     }
-    var image = getElementPosition(document.getElementById("star3"));
-    console.log(image.x + "," + image.y);
-    index = (image.x-1)*(image.y-1)*4;
-
+    console.log(star3X + "," + star3Y);
+    console.log("Star location is " + ((star1Y + h/2)*(640)+(star1X-1 +w/2)));
+    index = ((star1Y + h/2)*(640)+(star1X-1 +w/2))*4;
+	
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 3 touched");
-        image.src = "media/starinvert.png";
+        star3Touch = true;
+		score += 1;
+		var img = document.getElementById("star3");
+		img.src = "media/starinvert.png";
+		console.log("Star 3 inverted");
+
     }
 }
 
@@ -180,44 +206,69 @@ function renderShadow() {
         shadowContext.drawImage(stanfordImage, 0, 0, shadowCanvas.width, shadowCanvas.height);
         if (current_level == 1) {
             var el = document.getElementById("star1");
-            el.style.top = "36%";
-            el.style.left = "15%";
+            el.style.top = "20%";
+            el.style.left = "20%";
+            star1X = .20 * 640;
+            star1Y = .20 * 480;
             el.style.visibility = "visible";
             var el = document.getElementById("star2");
-            el.style.top = "25%";
-            el.style.left = "50%";
+            el.style.top = "40%";
+            el.style.left = "33%";
+            star2X = .40 * 640;
+            star2Y = .33 * 480;
             el.style.visibility = "visible";
 
             var el = document.getElementById("star3");
-            el.style.top = "50%";
-            el.style.left = "50%";
+            el.style.top = "60%";
+            el.style.left = "80%";
+            star3X = .60 * 640;
+            star3Y = .80 * 480;
             el.style.visibility = "visible";
 
         } 
         if (current_level == 2) {
-            document.getElementById("star1").style.visibility="visible";
-            document.getElementById("star2").style.visibility="visible";
-            document.getElementById("star3").style.visibility="visible";
-            var el = document.getElementById("star1");
-            el.style.top = "25%";
-            el.style.left = "11%";
+             var el = document.getElementById("star1");
+            el.style.top = "20%";
+            el.style.left = "20%";
+            star1X = .20 * 640;
+            star1Y = .20 * 480;
+            el.style.visibility = "visible";
             var el = document.getElementById("star2");
-            el.style.top = "22%";
-            el.style.left = "44%";
+            el.style.top = "80%";
+            el.style.left = "33%";
+            star2X = .80 * 640;
+            star2Y = .33 * 480;
+            el.style.visibility = "visible";
+
             var el = document.getElementById("star3");
-            el.style.top = "19%";
-            el.style.left = "75%";
+            el.style.top = "50%";
+            el.style.left = "50%";
+            star3X = .50 * 640;
+            star3Y = .50 * 480;
+            el.style.visibility = "visible";
+
+            
         } 
         if (current_level == 3) {
-            var el = document.getElementById("star1");
-            el.style.top = "33%";
-            el.style.left = "33%";
-            var el = document.getElementById("star2");
+        	var el = document.getElementById("star1");
             el.style.top = "50%";
-            el.style.left = "45%";
+            el.style.left = "70%";
+            star1X = .50 * 640;
+            star1Y = .70 * 480;
+            el.style.visibility = "visible";
+            var el = document.getElementById("star2");
+            el.style.top = "40%";
+            el.style.left = "66%";
+            star2X = .40 * 640;
+            star2Y = .66 * 480;
+            el.style.visibility = "visible";
+
             var el = document.getElementById("star3");
-            el.style.top = "33%";
-            el.style.left = "63%";
+            el.style.top = "75%";
+            el.style.left = "90%";
+            star3X = .75 * 640;
+            star3Y = .90 * 480;
+            el.style.visibility = "visible";
         } 
         if (IN_TUTORIAL) {
             document.getElementById("star1").style.visibility="hidden";
@@ -225,7 +276,12 @@ function renderShadow() {
             document.getElementById("star3").style.visibility="hidden";
         }
         var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
-
+		var el = document.getElementById("star1");
+		el.src = "media/star.png";
+		var el = document.getElementById("star2");
+		el.src = "media/star.png";
+		var el = document.getElementById("star3");
+		el.src = "media/star.png";
         // Now that the shadowContext has our jpeg painted, we can
         // loop pixel by pixel and only show the parts where the shadow lies.
         // 
@@ -369,6 +425,9 @@ function renderShadow() {
         }
         
         setTimeout(function() {
+        	starTouch();
+        }, 0);
+        setTimeout(function() {
             current_level = current_level + 1;
             current = current_level;
             if (!levels[current_level]) { // if you reached the end
@@ -391,6 +450,7 @@ function renderShadow() {
 
 function transEnd(e)
 {
+<<<<<<< HEAD
     console.log("scale transition ended " + level_cycles);
     if (level_cycles > 0) {
         STOP = STOP + 1;
@@ -399,6 +459,14 @@ function transEnd(e)
     }
     //score += 1;
     //starTouch();
+=======
+	starTouch();
+    console.log("transition ended");
+    if (level_cycles > 0) {
+        STOP = true;
+    } 
+
+>>>>>>> c2f37f895b4c8695c7f08dc8e420d63a1cb4c753
 }
 
 function test()

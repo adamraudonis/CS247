@@ -6,21 +6,21 @@ var IMG_SRC_TUTORIAL  = 'media/tutorial-start.png';
 //var IMG_SRC_LEVEL_3  = 'media/level3.png';
 
 
-var IMG_SRC_LEVEL_1_1  = 'media/level1-1.png';
-var IMG_SRC_LEVEL_1_2  = 'media/level1-2.png';
-var IMG_SRC_LEVEL_1_3  = 'media/level1-3.png';
-var IMG_SRC_LEVEL_1_4  = 'media/level1-4.png';
-var IMG_SRC_LEVEL_1_5  = 'media/level1-5.png';
-var IMG_SRC_LEVEL_2_1  = 'media/level1-1.png';
-var IMG_SRC_LEVEL_2_2  = 'media/level2-2.png';
-var IMG_SRC_LEVEL_2_3  = 'media/level2-3.png';
-var IMG_SRC_LEVEL_2_4  = 'media/level2-4.png';
-var IMG_SRC_LEVEL_2_5  = 'media/level2-5.png';
-var IMG_SRC_LEVEL_3_1  = 'media/level3-1.png';
-var IMG_SRC_LEVEL_3_2  = 'media/level3-2.png';
-var IMG_SRC_LEVEL_3_3  = 'media/level3-3.png';
-var IMG_SRC_LEVEL_3_4  = 'media/level3-4.png';
-var IMG_SRC_LEVEL_3_5  = 'media/level3-5.png';
+var IMG_SRC_LEVEL_1_1  = 'media/level1-1a.png';
+var IMG_SRC_LEVEL_1_2  = 'media/level1-2a.png';
+var IMG_SRC_LEVEL_1_3  = 'media/level1-3a.png';
+var IMG_SRC_LEVEL_1_4  = 'media/level1-4a.png';
+var IMG_SRC_LEVEL_1_5  = 'media/level1-5a.png';
+var IMG_SRC_LEVEL_2_1  = 'media/level2-1a.png';
+var IMG_SRC_LEVEL_2_2  = 'media/level2-2a.png';
+var IMG_SRC_LEVEL_2_3  = 'media/level2-3a.png';
+var IMG_SRC_LEVEL_2_4  = 'media/level2-4a.png';
+var IMG_SRC_LEVEL_2_5  = 'media/level2-5a.png';
+var IMG_SRC_LEVEL_3_1  = 'media/level3-1a.png';
+var IMG_SRC_LEVEL_3_2  = 'media/level3-2a.png';
+var IMG_SRC_LEVEL_3_3  = 'media/level3-3a.png';
+var IMG_SRC_LEVEL_3_4  = 'media/level3-4a.png';
+var IMG_SRC_LEVEL_3_5  = 'media/level3-5a.png';
 
 // Sounds
 var BEEP_LOW = 'media/beep_low.m4a';
@@ -43,8 +43,9 @@ var success = new Audio(SUCCESS);
 
 var WHITE  = 255;   // 0 = foreground, 255 = background
 var BLACK  = 0;
+var BLACK_LIMIT = 50;
 var STOP = false;
-var ERROR_TOLERANCE = 5;
+var ERROR_TOLERANCE = 200;
 var IN_TUTORIAL = true;
 var current_level = 1;
 var TUTORIAL_PIXELS = 15000; // The number of black pixels that must be in the door to start the countdown to play.
@@ -65,6 +66,9 @@ var star3Touch = false;
 
 
 $(document).ready(function() {
+
+    $('.lvlstatusimg').hide();
+
     stanfordImage = new Image();
     if (IN_TUTORIAL) {
         stanfordImage.src = IMG_SRC_TUTORIAL;
@@ -81,10 +85,6 @@ $(document).ready(function() {
 
     levels = new Array();
     levels[0] = IMG_SRC_TUTORIAL;
-    // levels[1] = IMG_SRC_LEVEL_1;
-    // levels[2] = IMG_SRC_LEVEL_2;
-    // levels[3] = IMG_SRC_LEVEL_3;
-    
     levels[1] = IMG_SRC_LEVEL_1_1;
     levels[2] = IMG_SRC_LEVEL_1_2;
     levels[3] = IMG_SRC_LEVEL_1_3;
@@ -126,30 +126,42 @@ function starTouch() {
     var img = getElementPosition(document.getElementById("star1"));
     var canvas = document.getElementById("capture");
     console.log(img.x + "," + img.y);
-    var w = canvas.style.width;
-    index = ((img.y)*(w-1)+img.x-1)*4;
+    index = ((img.y)*(479)+img.x-1)*4;
     var pixels = shadowContext.getImageData(0, 0, shadowCanvas.width, shadowCanvas.height);
 
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 1 touched");
         star1Touch = true;
+        score += 1;
+        var img = document.getElementById("star1");
+		img.src = "media/starinvert.png";
+		console.log("Star 1 inverted");
     }
     img = getElementPosition(document.getElementById("star2"));
     console.log(img.x + "," + img.y);
-	index = ((img.y)*(w-1)+img.x-1)*4;
+	index = ((img.y)*(479)+img.x-1)*4;
 	
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 2 touched");
         star2Touch = true;
+        score += 1;
+        var img = document.getElementById("star2");
+		img.src = "media/starinvert.png";
+		console.log("Star 2 inverted");
+
 
     }
     var img = getElementPosition(document.getElementById("star3"));
     console.log(img.x + "," + img.y);
-	index = ((img.y)*(w-1)+img.x-1)*4;
+	index = ((img.y)*(479)+img.x-1)*4;
 	
     if(pixels.data[index] == BLACK && pixels.data[index+1] == BLACK && pixels.data[index+2] == BLACK) {
         console.log("Star 3 touched");
         star3Touch = true;
+		score += 1;
+		var img = document.getElementById("star3");
+		img.src = "media/starinvert.png";
+		console.log("Star 3 inverted");
 
     }
 }
@@ -164,6 +176,8 @@ function starTouch() {
 function renderShadow() {
     if (!background)    // if they haven't captured a background frame
         return;
+
+    $('.lvlstatusimg').hide();
 
     // shadowContext.scale(.999,.999);
     // rawCanvas.setAttribute("width",rawCanvas.width * .99);
@@ -250,7 +264,7 @@ function renderShadow() {
             // i = red; i+1 = green; i+2 = blue; i+3 = alpha
             if(shadow.data[i] == BLACK && shadow.data[i+1] == BLACK && shadow.data[i+2] == BLACK) {
                 
-                if(pixels.data[i] == BLACK && pixels.data[i+1] == BLACK && pixels.data[i+2] == BLACK) {
+                if(pixels.data[i] < BLACK_LIMIT && pixels.data[i+1] < BLACK_LIMIT && pixels.data[i+2] < BLACK_LIMIT) {
                     pixels.data[i]   = 255;
                     pixels.data[i+1] = 0;
                     pixels.data[i+2] = 0;
@@ -341,6 +355,7 @@ function renderShadow() {
             crash.play();
             $("#status").text("You failed!");
             $("#score").text("Score: "+score);
+            $('#notclear').show();
 
 
         } else {
@@ -348,14 +363,17 @@ function renderShadow() {
             score += 1;
             $("#status").text("You won!");
             $("#score").text("Score: "+score);
+            $('#clear').show();
+
+
 
 
         }
         setTimeout(function() {
             current_level = current_level + 1;
             current = current_level;
-            if (!levels[current_level]) {
-                console.log("You won!!!");
+            if (!levels[current_level]) { // if you reached the end
+                console.log("You won!!! END OF GAME");
             } else {
                 level_cycles = -5;
                 STOP = false;
@@ -376,40 +394,12 @@ function renderShadow() {
 function transEnd(e)
 {
 	starTouch();
-	if (star1Touch == true) {
-		var img = document.getElementById("star1");
-		console.log(img.src);
-		img.src = "media/starinvert.png";
-		console.log("Star 1 inverted");
-	}
-	if (star2Touch == true) {
-		var img = document.getElementById("star2");
-		console.log(img.src);
-
-		img.src = "media/starinvert.png";
-		console.log("Star 2 inverted");
-
-	}
-	if (star3Touch == true) {
-		var img = document.getElementById("star3");
-		console.log(img.src);
-
-		img.src = "media/starinvert.png";
-		console.log("Star 3 inverted");
-
-	}
-	setTimeout(function() {
-		console.log("Time sleep");
-	}, 2000);
     console.log("transition ended");
     if (level_cycles > 0) {
         STOP = true;
     } 
-    score += 1;
-    star1Touch = false;
-	star2Touch = false;
-	star3Touch = false;
-	setTimeout(function() {}, 2500);
+
+	setTimeout(function() {}, 3000);
 
 }
 

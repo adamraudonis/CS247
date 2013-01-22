@@ -44,7 +44,7 @@ var success = new Audio(SUCCESS);
 var WHITE  = 255;   // 0 = foreground, 255 = background
 var BLACK  = 0;
 var BLACK_LIMIT = 50;
-var STOP = false;
+var STOP = 0;
 var ERROR_TOLERANCE = 200;
 var IN_TUTORIAL = true;
 var current_level = 1;
@@ -156,8 +156,6 @@ function starTouch() {
 function renderShadow() {
     if (!background)    // if they haven't captured a background frame
         return;
-
-    $('.lvlstatusimg').hide();
 
     // shadowContext.scale(.999,.999);
     // rawCanvas.setAttribute("width",rawCanvas.width * .99);
@@ -283,7 +281,6 @@ function renderShadow() {
 
         }
 
-
         // And now, paint our pixels array back to the canvas.
         shadowContext.putImageData(pixels, 0, 0);
     }
@@ -348,14 +345,17 @@ function renderShadow() {
 
 
 
-    if (!STOP) {
+    if (STOP == 0) {
+        $('.lvlstatusimg').hide();
         // Loop every millisecond. Changing the freq. is a tradeoff between
         // interactivity and performance. Tune to what your machine can support.
          setTimeout(renderShadow, 0);
-    } else {
+    } else if (STOP == 1){
+        STOP = STOP + 1;
+        
         if (numErrors > ERROR_TOLERANCE) {
             crash.play();
-            $("#status").text("You failed!" + numErrors);
+            $("#status").text("You failed!");
             $("#score").text("Score: "+score);
             $('#notclear').show();
 
@@ -363,44 +363,42 @@ function renderShadow() {
         } else {
             success.play();
             score += 1;
-            $("#status").text("You won!" + numErrors);
+            $("#status").text("You won!");
             $("#score").text("Score: "+score);
             $('#clear').show();
-
-
-
-
         }
+        
         setTimeout(function() {
             current_level = current_level + 1;
             current = current_level;
             if (!levels[current_level]) { // if you reached the end
                 console.log("You won!!! END OF GAME");
             } else {
+                console.log("HERE");
                 level_cycles = -5;
                 STOP = false;
                 IN_TUTORIAL = false;
                 stanfordImage.src = levels[current_level];
                 current = current_level;
                 var el = document.getElementById("capture");
-                el.style["WebkitTransition"] = "all 0s ease-in-out";
+                el.style["WebkitTransition"] = "all .5s ease-in-out";
                 el.style["WebkitTransform"] = "scale(.5)";
-                setTimeout(renderShadow, 0);
             }
         },1000);
         
     }
-   // setTimeout(renderShadow, 0);
 }
 
 function transEnd(e)
 {
-    //console.log("transition ended " + current_level);
+    console.log("scale transition ended " + level_cycles);
     if (level_cycles > 0) {
-        STOP = true;
-    } 
-    score += 1;
-    starTouch();
+        STOP = STOP + 1;
+    } else {
+        setTimeout(renderShadow, 0);
+    }
+    //score += 1;
+    //starTouch();
 }
 
 function test()

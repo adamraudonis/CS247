@@ -210,7 +210,7 @@ function renderShadow() {
             el.style.visibility = "hidden";
 
         } 
-        if (current_level == 2) {
+       if (current_level == 2) {
             var el = document.getElementById("star1");
             el.style.left = "20%";
 
